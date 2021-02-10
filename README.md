@@ -18,4 +18,4 @@ En Seibi Experience hay presentes un total de seis entidades, que son las siguie
 Destacan como funcionalidades internas la gestión del registro de los usuarios y login de los mismos, gestión del pedido/reserva (en caso de que no se haga por compra directa), mostrar la página principal pública con publicaciones de los usuarios y productos, herramientas para la creación de publicaciones y visualización de nuestras publicaciones propias (con sus comentarios) y el guardado de comentarios y "favoritos"
 ## Integrantes
 * Jia Qi (Rocío) Chen Sun, jq.chen.2017@alumnos.urjc.es, github.com/rociiocs
-* Antonio Robledinos Antón, a.robledinos.20172alumnos.urjc.es, github.com/AruxG
+* Antonio Robledinos Antón, a.robledinos.2017@alumnos.urjc.es, github.com/AruxG
