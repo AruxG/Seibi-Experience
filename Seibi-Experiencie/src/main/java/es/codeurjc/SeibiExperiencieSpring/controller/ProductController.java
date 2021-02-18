@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.codeurjc.SeibiExperiencieSpring.model.User;
-import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
+import es.codeurjc.SeibiExperiencieSpring.model.Product;
+import es.codeurjc.SeibiExperiencieSpring.repository.ProductRepository;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
-
+@RequestMapping("/products")
+public class ProductController {
+	
 	@Autowired
-	private UserRepository users;
+	private ProductRepository products;
 	
 	@GetMapping("/")
-	public Collection<User> getUsers(){
-		return users.findAll();
+	public Collection<Product> getProducts(){
+		return products.findAll();
 	}
 }
