@@ -1,14 +1,9 @@
 package es.codeurjc.SeibiExperiencieSpring.repository;
 
-import java.util.Collection;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import es.codeurjc.SeibiExperiencieSpring.model.User;
 
-public class UserRepository {
-
-	public Collection<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public interface UserRepository extends JpaRepository<User,Long>{
 
 }

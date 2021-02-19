@@ -2,13 +2,11 @@ package es.codeurjc.SeibiExperiencieSpring.repository;
 
 import java.util.Collection;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import es.codeurjc.SeibiExperiencieSpring.model.Product;
 
-public class ProductRepository {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
-	public Collection<Product> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

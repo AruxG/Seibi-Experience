@@ -1,13 +1,11 @@
 package es.codeurjc.SeibiExperiencieSpring.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -16,9 +14,60 @@ public class User {
 	private String name;
 	private String password;
 	
-	@OneToMany
-	private List<Order> orders;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Order> orders = new ArrayList<>();
 	
-	@OneToMany
-	private List<Comment>comments;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Comment>comments = new ArrayList<>();
+	
+	public User() {
+	}
+
+	public User(String name, String password, List<Order> orders, List<Comment> comments) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.orders = orders;
+		this.comments = comments;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName() {
+		this.name = name;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword() {
+		this.password = password;
+	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+	
+	public void setOrders() {
+		this.orders = orders;
+	}
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
+	
+	public void setComments() {
+		this.comments = comments;
+	}
 }

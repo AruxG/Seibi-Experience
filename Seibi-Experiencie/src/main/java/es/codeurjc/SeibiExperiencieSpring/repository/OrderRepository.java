@@ -1,14 +1,9 @@
 package es.codeurjc.SeibiExperiencieSpring.repository;
 
-import java.util.Collection;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import es.codeurjc.SeibiExperiencieSpring.model.Order;
 
-public class OrderRepository {
-
-	public Collection<Order> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public interface OrderRepository extends JpaRepository<Order,Long>{
 
 }
