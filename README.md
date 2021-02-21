@@ -18,3 +18,5 @@ En Seibi Experience hay presentes un total de seis entidades, que son las siguie
 ## Integrantes
 * Jia Qi (Rocío) Chen Sun, jq.chen.2017@alumnos.urjc.es, github.com/rociiocs
 * Antonio Robledinos Antón, a.robledinos.2017@alumnos.urjc.es, github.com/AruxG
+
+_Trello:_ https://trello.com/b/20wlKqxT/seibi-experience
