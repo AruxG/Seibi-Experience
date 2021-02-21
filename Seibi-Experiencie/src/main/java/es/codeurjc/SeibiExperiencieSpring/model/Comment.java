@@ -52,7 +52,7 @@ public class Comment {
 		return text;
 	}
 	
-	public void setText() {
+	public void setText(String text) {
 		this.text = text;
 	}
 	
@@ -60,7 +60,7 @@ public class Comment {
 		return product;
 	}
 	
-	public void setProduct() {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 

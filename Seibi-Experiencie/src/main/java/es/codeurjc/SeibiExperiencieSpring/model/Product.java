@@ -53,7 +53,7 @@ public class Product {
 		return name;
 	}
 	
-	public void setName() {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
@@ -61,7 +61,7 @@ public class Product {
 		return activities;
 	}
 	
-	public void setActivities() {
+	public void setActivities(String activities) {
 		this.activities = activities;
 	}
 	
@@ -69,7 +69,7 @@ public class Product {
 		return city;
 	}
 	
-	public void setCity() {
+	public void setCity(String city) {
 		this.city = city;
 	}
 	
@@ -77,7 +77,7 @@ public class Product {
 		return time;
 	}
 	
-	public void setTime() {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	
@@ -85,7 +85,7 @@ public class Product {
 		return image;
 	}
 	
-	public void setImage() {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	
@@ -93,7 +93,7 @@ public class Product {
 		return description;
 	}
 	
-	public void setDescription() {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 }

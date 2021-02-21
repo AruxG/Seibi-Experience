@@ -68,7 +68,7 @@ public class Order {
 		return mail;
 	}
 	
-	public void setMail() {
+	public void setMail(String mail) {
 		this.mail = mail;
 	}
 	
@@ -76,7 +76,7 @@ public class Order {
 		return cardNumber;
 	}
 	
-	public void setCardNumber() {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 	
@@ -84,7 +84,7 @@ public class Order {
 		return CVV;
 	}
 	
-	public void setCVV() {
+	public void setCVV(int CVV) {
 		this.CVV = CVV;
 	}
 }

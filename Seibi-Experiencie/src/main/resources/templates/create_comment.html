@@ -1,0 +1,15 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+</head>
+<body>
+	<form action="/comments/create_comment" method="post">
+		<p>User: </p>
+		<input type='text' name='user' value='{{#user}}{{.}}{{/user}}'/>
+		<p>Text:</p>
+		<textarea name='text' rows=5 cols=40></textarea>
+		
+		<input type='submit' value='Save'/>
+	</form>
+</body>
+</html>

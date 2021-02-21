@@ -43,7 +43,7 @@ public class User {
 		return name;
 	}
 	
-	public void setName() {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
@@ -51,7 +51,7 @@ public class User {
 		return password;
 	}
 	
-	public void setPassword() {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	
@@ -59,7 +59,7 @@ public class User {
 		return orders;
 	}
 	
-	public void setOrders() {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 	
@@ -67,7 +67,7 @@ public class User {
 		return comments;
 	}
 	
-	public void setComments() {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 }
