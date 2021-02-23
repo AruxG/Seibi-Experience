@@ -63,11 +63,11 @@ public class ProductController {
 		
 		//Pontevedra experiences
 		activities = "Desayuno, visita a enoteca con cata";
-		products.save(new Product("SevillaByMorning", activities,"Pontevedra","Mañana",null,"Ideal para conocer Pontevedra"));
+		products.save(new Product("PontevedraByMorning", activities,"Pontevedra","Mañana",null,"Ideal para conocer Pontevedra"));
 		activities = "Almuerzo con mariscada, clase de surf";
-		products.save(new Product("SevillaByEvening", activities,"Pontevedra","Tarde",null,"Vas a adorar Pontevedra"));
+		products.save(new Product("PontevedraByEvening", activities,"Pontevedra","Tarde",null,"Vas a adorar Pontevedra"));
 		activities = "Noche en hórreos con cena incluida";
-		products.save(new Product("SevillaByNight", activities,"Pontevedra","Noche",null,"Una noche de fantasía en Pontevedra"));
+		products.save(new Product("PontevedraByNight", activities,"Pontevedra","Noche",null,"Una noche de fantasía en Pontevedra"));
 		
 	}
 	

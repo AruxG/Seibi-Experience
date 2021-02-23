@@ -6,12 +6,13 @@
 	<p>Producto: {{product.name}}</p>
 	<p>Descripción: {{product.description}}</p>
 	<p>Actividades: {{product.activities}}</p>
+	<br>
 	{{#product.comments}}
-	<p>Usuario: {{user}}</p>
+	<p>Usuario: {{user.name}}</p>
 	<p>Comentario: {{text}}</p>
 	<br>
 	{{/product.comments}}
-	<a href="/comments/create_comment">Añadir comentario</a>
+	<a href="/products/{{product.id}}/comments/create_comment">Añadir comentario</a>
 	<br>
 </body>
 	<a href="/">Volver</a>
