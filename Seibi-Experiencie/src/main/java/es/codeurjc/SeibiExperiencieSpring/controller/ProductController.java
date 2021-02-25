@@ -9,12 +9,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.SeibiExperiencieSpring.model.Comment;
@@ -72,14 +75,36 @@ public class ProductController {
 	}
 	
 	@GetMapping("/")
-	public String showPosts(Model model, HttpSession session) {
-
-		model.addAttribute("products", products.findAll());
+	public String showPosts(Model model, HttpSession session, Pageable page) {
+		
+		model.addAttribute("products", products.findAll(page));//PageRequest.of(5, 4)
 		model.addAttribute("welcome", session.isNew());
 
 		return "index";
 	}
-	
+	@PostMapping("/")
+	public String showPostsFiltered(
+			Model model, 
+			HttpSession session, 
+			Pageable page, 
+			@RequestParam String city, 
+			@RequestParam String time) 
+	{
+		Page<Product> productsFiltered;
+		if(!city.equals("Any") && !time.equals("Any")) {
+			productsFiltered= products.findByCityAndTime(city, time, page);
+		}else if(!city.equals("Any")) {
+			productsFiltered= products.findByCity(city, page);
+		}else if(!time.equals("Any")){
+			productsFiltered= products.findByTime(time, page);
+		}else {
+			productsFiltered= products.findAll(page);
+		}
+		model.addAttribute("products", productsFiltered);
+		model.addAttribute("ciudad", city);
+		model.addAttribute("hora", time);
+		return "index";
+	}
 	@GetMapping("/product/{id}")
 	public String showPost(Model model, @PathVariable long id) {
 

@@ -1,6 +1,13 @@
 <html>
 <head>
 <meta charset="UTF-8"/>
+<script type="text/JavaScript">
+//<![CDATA[
+function Seleccionar (ciudadSeleccionada){
+	document.getElementById("city").value = ciudadSeleccionada;
+}
+//]]>
+</script>
 </head>
 <body>
 
@@ -11,10 +18,31 @@
 	<h1>Seibi Experience</h1>
 	
 	<h1>Productos</h1>
+	<form action="/" method="post">
+	<label>Choose a city:</label>
+		<select name="city" id="city"> 
+		<a href="javascript:Seleccionar({{ciudad}})">Llamar función</a>
+			<option value="Any">Any</option>
+			<option value="Madrid">Madrid </option> 
+			<option value="Barcelona">Barcelona</option> 
+			<option value="Toledo">Toledo</option> 
+			<option value="Sevilla">Sevilla</option> 
+			<option value="Pontevedra">Pontevedra</option> 
+		</select>
+	<label> Choose a time:</label>
+		<select name="time" id="time"> 
+			<option value="Any">Any</option>
+			<option value="Mañana">Morning</option> 
+			<option value="Tarde">Evening</option> 
+			<option value="Noche">Night</option> 
+		</select>
+	<input type="Submit" value="Filtrar">
+	</form>
+	<br>
 	{{#products}}
 	<a href="product/{{id}}">{{name}}</a>
 	<a>{{description}}</a>
-	<br>
+	<br><br>
 	{{/products}}
 	
 	{{^products}}
