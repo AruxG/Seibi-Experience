@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,21 +73,29 @@ public class ProductController {
 		activities = "Noche en hórreos con cena incluida";
 		products.save(new Product("PontevedraByNight", activities,"Pontevedra","Noche",null,"Una noche de fantasía en Pontevedra"));
 		
+		
 	}
 	
 	@GetMapping("/")
-	public String showPosts(Model model, HttpSession session, Pageable page) {
+	public String showPosts(Model model, HttpSession session,@PageableDefault(size = 5) Pageable page) {
+		Page<Product> prod = products.findAll(page);
 		
-		model.addAttribute("products", products.findAll(page));//PageRequest.of(5, 4)
+		model.addAttribute("products", prod);
+		model.addAttribute("hasPrev", prod.hasPrevious());
+		model.addAttribute("hasNext", prod.hasNext());
+		model.addAttribute("nextPage", prod.getNumber()+1);
+		model.addAttribute("prevPage", prod.getNumber()-1);		
+		
 		model.addAttribute("welcome", session.isNew());
-
+		model.addAttribute("ciudad", "Any");
+		model.addAttribute("hora", "Any");
 		return "index";
 	}
 	@PostMapping("/")
 	public String showPostsFiltered(
 			Model model, 
 			HttpSession session, 
-			Pageable page, 
+			@PageableDefault(size = 5) Pageable page, 
 			@RequestParam String city, 
 			@RequestParam String time) 
 	{
@@ -100,7 +109,12 @@ public class ProductController {
 		}else {
 			productsFiltered= products.findAll(page);
 		}
+		
 		model.addAttribute("products", productsFiltered);
+		model.addAttribute("hasPrev", productsFiltered.hasPrevious());
+		model.addAttribute("hasNext", productsFiltered.hasNext());
+		model.addAttribute("nextPage", productsFiltered.getNumber()+1);
+		model.addAttribute("prevPage", productsFiltered.getNumber()-1);	
 		model.addAttribute("ciudad", city);
 		model.addAttribute("hora", time);
 		return "index";

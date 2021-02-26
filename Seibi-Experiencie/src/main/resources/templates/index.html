@@ -1,15 +1,33 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8"/>
 <script type="text/JavaScript">
-//<![CDATA[
-function Seleccionar (ciudadSeleccionada){
-	document.getElementById("city").value = ciudadSeleccionada;
+function Seleccionar(ciudad,hora){
+	var elements = document.getElementById("city").options;
+    for(var i = 0; i < elements.length; i++){
+    	var val = elements[i].value;
+    	if(val == ciudad){
+    	elements[i].selected = true;
+    	}else{
+    	elements[i].selected = false;
+    	}
+      
+    }
+    var elements = document.getElementById("time").options;
+    for(var i = 0; i < elements.length; i++){
+    	var val = elements[i].value;
+    	if(val == hora){
+    	elements[i].selected = true;
+    	}else{
+    	elements[i].selected = false;
+    	}
+      
+    }
 }
-//]]>
 </script>
 </head>
-<body>
+<body onload="javascript:Seleccionar('{{ciudad}}','{{hora}}')">
 
 	{{#welcome}}
 	<h1>Welcome!</h1>
@@ -21,7 +39,6 @@ function Seleccionar (ciudadSeleccionada){
 	<form action="/" method="post">
 	<label>Choose a city:</label>
 		<select name="city" id="city"> 
-		<a href="javascript:Seleccionar({{ciudad}})">Llamar función</a>
 			<option value="Any">Any</option>
 			<option value="Madrid">Madrid </option> 
 			<option value="Barcelona">Barcelona</option> 
@@ -43,7 +60,20 @@ function Seleccionar (ciudadSeleccionada){
 	<a href="product/{{id}}">{{name}}</a>
 	<a>{{description}}</a>
 	<br><br>
+	<br><br>
 	{{/products}}
+	
+	<br>
+	
+	{{#hasPrev}}
+	<a href="/?page={{prevPage}}">Prev</a>	
+	{{/hasPrev}}
+	
+	{{#hasNext}}
+	<a href="/?page={{nextPage}}">Next</a>
+	{{/hasNext}}
+	
+	<br>
 	
 	{{^products}}
 	<p>No hay posts todavía.</p>
