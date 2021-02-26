@@ -35,6 +35,14 @@ function Seleccionar(ciudad,hora){
 	
 	<h1>Seibi Experience</h1>
 	
+	{{#user}}
+	<a href=/users/show_user>{{user}}</a>
+	{{/user}}
+	
+	{{^user}}
+	<a href=/users/login>Iniciar sesión</a>
+	{{/user}}
+	
 	<h1>Productos</h1>
 	<form action="/" method="post">
 	<label>Choose a city:</label>

@@ -15,7 +15,7 @@ public class Comment {
 	private long id;
 	
 	@ManyToOne
-	private User user;
+	private User usuario;
 	private String text;
 	
 	@ManyToOne
@@ -25,9 +25,9 @@ public class Comment {
 	public Comment() {
 	}
 
-	public Comment(User user, String text, Product product) {
+	public Comment(User usuario, String text, Product product) {
 		super();
-		this.user = user;
+		this.usuario = usuario;
 		this.text = text;
 		this.product = product;
 	}
@@ -41,11 +41,11 @@ public class Comment {
 	}
 
 	public User getUser() {
-		return user;
+		return usuario;
 	}
 
 	public void setUser(User user) {
-		this.user = user;
+		this.usuario = user;
 	}
 	
 	public String getText() {

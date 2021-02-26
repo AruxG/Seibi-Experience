@@ -1,15 +1,10 @@
 package es.codeurjc.SeibiExperiencieSpring.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -17,11 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import es.codeurjc.SeibiExperiencieSpring.model.Comment;
 import es.codeurjc.SeibiExperiencieSpring.model.Product;
 import es.codeurjc.SeibiExperiencieSpring.repository.ProductRepository;
 
@@ -87,6 +79,7 @@ public class ProductController {
 		model.addAttribute("prevPage", prod.getNumber()-1);		
 		
 		model.addAttribute("welcome", session.isNew());
+		model.addAttribute("user",session.getValue("user"));
 		model.addAttribute("ciudad", "Any");
 		model.addAttribute("hora", "Any");
 		return "index";
@@ -115,16 +108,17 @@ public class ProductController {
 		model.addAttribute("hasNext", productsFiltered.hasNext());
 		model.addAttribute("nextPage", productsFiltered.getNumber()+1);
 		model.addAttribute("prevPage", productsFiltered.getNumber()-1);	
+		model.addAttribute("user",session.getValue("user"));
 		model.addAttribute("ciudad", city);
 		model.addAttribute("hora", time);
 		return "index";
 	}
 	@GetMapping("/product/{id}")
-	public String showPost(Model model, @PathVariable long id) {
+	public String showPost(Model model,HttpSession httpSession, @PathVariable long id) {
 
 		Product product = products.findById(id).orElseThrow();
 		model.addAttribute("product", product);
-
 		return "show_product";
 	}
+
 }

@@ -23,12 +23,12 @@ public class User {
 	public User() {
 	}
 
-	public User(String name, String password, List<Order> orders, List<Comment> comments) {
+	public User(String name, String password) {
 		super();
 		this.name = name;
 		this.password = password;
-		this.orders = orders;
-		this.comments = comments;
+		this.orders = new ArrayList<Order>();
+		this.comments = new ArrayList<Comment>();
 	}
 	
 	public Long getId() {
