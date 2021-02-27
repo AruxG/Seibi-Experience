@@ -12,7 +12,12 @@
 	<p>Comentario: {{text}}</p>
 	<br>
 	{{/product.comments}}
+	{{#User}}
 	<a href="/products/{{product.id}}/comments/create_comment">Añadir comentario</a>
+	{{/User}}
+	{{^User}}
+	<p><i>Se requiere de un usuario para poder realizar comentarios.</i></p>
+	{{/User}}
 	<br>
 </body>
 	<a href="/">Volver</a>

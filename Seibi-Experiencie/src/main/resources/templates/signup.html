@@ -13,8 +13,13 @@
 		{{#error}}
 		<p>La contraseña no coincide</p>
 		{{/error}}
+		{{#error2}}
+		<p>El usuario ya existe</p>
+		{{/error2}}
 		<p>
 		<input type='submit' value='Registrarse'/>
+		<br>
+		<a href="/users/login">Volver</a>
 	</form>
 </body>
 </html>

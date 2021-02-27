@@ -118,6 +118,7 @@ public class ProductController {
 
 		Product product = products.findById(id).orElseThrow();
 		model.addAttribute("product", product);
+		model.addAttribute("User", httpSession.getValue("user"));
 		return "show_product";
 	}
 

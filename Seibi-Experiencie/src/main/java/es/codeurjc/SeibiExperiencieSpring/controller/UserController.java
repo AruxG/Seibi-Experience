@@ -39,11 +39,35 @@ public class UserController {
 		return "show_user";
 	}
 	
+	
 	@GetMapping("/login")
-	public String login(){
+	public String login() {
 		return "login";
 	}
 	
+	@PostMapping("/login")
+	public String login(Model model,HttpSession httpSession, @RequestParam String user, @RequestParam String password){
+		
+		if(users.findByName(user)!=null&& users.findByName(user).getPassword().equals(password)){
+			httpSession.setAttribute("name_user", user);
+			httpSession.setAttribute("user", user);
+			model.addAttribute("user",httpSession.getAttribute("name_user"));
+			return "user_loged";
+		}else {
+			if(users.findByName(user)==null) {
+				model.addAttribute("usedName", user);
+			}else {
+				model.addAttribute("error",true);
+			}
+			return "login";
+		}
+	}
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.setAttribute("name_user", null);
+		session.setAttribute("user", null);
+		return "user_unloged";
+	}
 	@GetMapping("/signup")
 	public String signUp(){
 		return "signup";
@@ -51,17 +75,21 @@ public class UserController {
 	
 	@PostMapping("/signup")
 	public String signUp(Model model, HttpSession httpSession, @RequestParam String user, @RequestParam String password, @RequestParam String password2) {
-		if(password.equals(password2)) {
-			User new_User = new User(user,password);
-			users.save(new_User);
-			httpSession.setAttribute("name_user", new_User.getName());
-			httpSession.setAttribute("user", new_User.getName());
-			model.addAttribute("user",httpSession.getAttribute("name_user"));
-			return "user_created";
-		}else {
-			model.addAttribute("error",true);
+		if (users.findByName(user)!=null) {
+			model.addAttribute("error2",true);
 			return "signup";
+		}else {
+			if(password.equals(password2)) {
+				User new_User = new User(user,password);
+				users.save(new_User);
+				httpSession.setAttribute("name_user", new_User.getName());
+				httpSession.setAttribute("user", new_User.getName());
+				model.addAttribute("user",httpSession.getAttribute("name_user"));
+				return "user_created";
+			}else {
+				model.addAttribute("error",true);
+				return "signup";
+			}
 		}
-		
 	}
 }

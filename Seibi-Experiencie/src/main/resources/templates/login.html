@@ -3,6 +3,12 @@
 	<meta charset="UTF-8"/>
 </head>
 <body>
+	{{#usedName}}
+	<p>El usuario {{usedName}} no está registrado</p>
+	{{/usedName}}
+	{{#error}}
+	<p>La constraseña es errónea</p>
+	{{/error}}
 	<form action="./login" method="post">
 		<p>Usuario: </p>
 		<input type='text' name='user'/>
