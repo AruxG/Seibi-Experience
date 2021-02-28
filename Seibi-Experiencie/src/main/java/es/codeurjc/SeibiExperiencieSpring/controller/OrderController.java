@@ -1,13 +1,15 @@
 package es.codeurjc.SeibiExperiencieSpring.controller;
 
 import java.util.Collection;
-
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.SeibiExperiencieSpring.model.Order;
+import es.codeurjc.SeibiExperiencieSpring.model.User;
 import es.codeurjc.SeibiExperiencieSpring.repository.OrderRepository;
 
 @RestController
@@ -22,4 +24,6 @@ public class OrderController {
 	public Collection<Order> getOrders(){
 		return orders.findAll();
 	}
+	
+	
 }

@@ -20,6 +20,7 @@ public class Product {
 	private String time;
 	private String image;
 	private String description;
+	private int price;
 	@Lob
 	@JsonIgnore
 	private Blob imageFile;
@@ -30,7 +31,7 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(String name, String activities, String city, String time, String image, String description) {
+	public Product(String name, String activities, String city, String time, String image, String description,int price ) {
 		super();
 		this.name = name;
 		this.activities = activities;
@@ -38,7 +39,7 @@ public class Product {
 		this.time = time;
 		this.image = image;
 		this.description = description;
-		
+		this.price = price;
 	}
 	
 	public Long getId() {
@@ -95,5 +96,13 @@ public class Product {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+	
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }

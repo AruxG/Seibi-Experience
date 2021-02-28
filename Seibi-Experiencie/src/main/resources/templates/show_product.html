@@ -6,11 +6,22 @@
 	<p>Producto: {{product.name}}</p>
 	<p>Descripción: {{product.description}}</p>
 	<p>Actividades: {{product.activities}}</p>
-	<br>
+	<br></br>
+	
+	{{#Carrito}}
+	<a>Ya está en tu carrito</a>
+	{{/Carrito}}
+	
+	{{^Carrito}}
+	<a href="/products/{{product.id}}/buy">Añadir al carrito</a>
+	{{/Carrito}}
+	<a href="/users/carrito">Ir al carrito </a>
+	<br></br>
+	
 	{{#product.comments}}
 	<p>Usuario: {{usuario.name}}</p>
 	<p>Comentario: {{text}}</p>
-	<br>
+	<br></br>
 	{{/product.comments}}
 	{{#User}}
 	<a href="/products/{{product.id}}/comments/create_comment">Añadir comentario</a>
@@ -18,7 +29,7 @@
 	{{^User}}
 	<p><i>Se requiere de un usuario para poder realizar comentarios.</i></p>
 	{{/User}}
-	<br>
+	<br></br>
 </body>
 	<a href="/">Volver</a>
 </html>

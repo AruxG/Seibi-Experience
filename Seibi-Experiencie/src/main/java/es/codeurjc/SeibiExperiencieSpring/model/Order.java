@@ -12,9 +12,11 @@ public class Order {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	private String user;
+	@ManyToOne
+	private User user;
 	@ManyToMany
 	private List<Product> products = new ArrayList<>();
+	private boolean complete;
 	private Date date;
 	
 	//Pago con tarjeta
@@ -25,11 +27,9 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(String user, List<Product> products, Date date) {
+	public Order(User user) {
 		super();
 		this.user = user;
-		this.products = products;
-		this.date = date;
 	}
 	
 	public Long getId() {
@@ -40,11 +40,11 @@ public class Order {
 		this.id = id;
 	}
 
-	public String getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(String user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	
@@ -86,5 +86,10 @@ public class Order {
 	
 	public void setCVV(int CVV) {
 		this.CVV = CVV;
+	}
+	
+	public Order orElseThrow() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

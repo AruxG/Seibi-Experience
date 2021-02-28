@@ -20,6 +20,9 @@ public class User {
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Comment>comments = new ArrayList<>();
 	
+	@ManyToMany
+	private List<Product>products = new ArrayList<>();
+	
 	public User() {
 	}
 
@@ -27,7 +30,6 @@ public class User {
 		super();
 		this.name = name;
 		this.password = password;
-		this.orders = new ArrayList<Order>();
 		this.comments = new ArrayList<Comment>();
 	}
 	
@@ -55,6 +57,14 @@ public class User {
 		this.password = password;
 	}
 	
+	public List<Product> getProducts() {
+		return products;
+	}
+	
+	public void setProducts( List<Product> products) {
+		this.products = products;
+	}
+	
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -69,5 +79,17 @@ public class User {
 	
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	public void addProduct(Product p) {
+		products.add(p);
+	}
+	
+	public void removeProduct(Product p) {
+		products.remove(p);
+	}
+	
+	public boolean containsProduct(Product p) {
+		return products.contains(p);
 	}
 }

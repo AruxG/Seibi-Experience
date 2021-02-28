@@ -92,4 +92,11 @@ public class UserController {
 			}
 		}
 	}
+	
+	@GetMapping("/carrito")
+	public String show_carrito(Model model, HttpSession httpSession) {
+		User user = users.findByName((httpSession.getAttribute("user")).toString());
+		model.addAttribute("products",user.getProducts());
+		return "carrito";
+	}
 }

@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.codeurjc.SeibiExperiencieSpring.model.Order;
 import es.codeurjc.SeibiExperiencieSpring.model.Product;
+import es.codeurjc.SeibiExperiencieSpring.model.User;
+import es.codeurjc.SeibiExperiencieSpring.repository.OrderRepository;
 import es.codeurjc.SeibiExperiencieSpring.repository.ProductRepository;
+import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
 
 @Controller
 public class ProductController {
@@ -23,47 +27,53 @@ public class ProductController {
 	@Autowired
 	private ProductRepository products;
 	
+	@Autowired
+	private OrderRepository orders;
+	
+	@Autowired
+	private UserRepository users;
+	
 	@PostConstruct
 	public void init() {
 		//Madrid experiences
 		String activities = "Desayuno, Museo del prado, Aperitivo";
-		products.save(new Product("MadridByMorning", activities,"Madrid","Mañana",null,"Ideal para conocer Madrid"));
+		products.save(new Product("MadridByMorning", activities,"Madrid","Mañana",null,"Ideal para conocer Madrid",50));
 		activities = "Almuerzo en terraza con vistas a la ciudad, Escape Room Lever, Merienda";
-		products.save(new Product("MadridByEvening", activities,"Madrid","Tarde",null,"Vas a adorar Madrid"));
+		products.save(new Product("MadridByEvening", activities,"Madrid","Tarde",null,"Vas a adorar Madrid",70));
 		activities = "Rocódromo, Cena, ver El rey León";
-		products.save(new Product("MadridByNight", activities,"Madrid","Noche",null,"Una noche de fantasía en Madrid"));
+		products.save(new Product("MadridByNight", activities,"Madrid","Noche",null,"Una noche de fantasía en Madrid",50));
 		
 		//Barcelona experiences
 		activities = "Desayuno, visitar Sagrada Familia";
-		products.save(new Product("BarcelonaByMorning", activities,"Barcelona","Mañana",null,"Ideal para conocer Barcelona"));
+		products.save(new Product("BarcelonaByMorning", activities,"Barcelona","Mañana",null,"Ideal para conocer Barcelona",40));
 		activities = "Almuerzo en una terraza con vistas a la ciudad, visitar Parque Güell, merienda";
-		products.save(new Product("BarcelonaByEvening", activities,"Barcelona","Tarde",null,"Vas a adorar Barcelona"));
+		products.save(new Product("BarcelonaByEvening", activities,"Barcelona","Tarde",null,"Vas a adorar Barcelona",30));
 		activities = "Cena en un yate con vistas al mar y música en directo de la mano de Sailing Experience";
-		products.save(new Product("BarcelonaByNight", activities,"Barcelona","Noche",null,"Una noche de fantasía en Barcelona"));
+		products.save(new Product("BarcelonaByNight", activities,"Barcelona","Noche",null,"Una noche de fantasía en Barcelona",60));
 		
 		//Toledo experiences
 		activities = "Desayuno, Visita guiada por los monumentos más importantes de Toledo";
-		products.save(new Product("ToledoByMorning", activities,"Toledo","Mañana",null,"Ideal para conocer Toledo"));
+		products.save(new Product("ToledoByMorning", activities,"Toledo","Mañana",null,"Ideal para conocer Toledo",30));
 		activities = "Almuerzo, circuito de spa con masaje incluido y merienda temática";
-		products.save(new Product("ToledoByEvening", activities,"Toledo","Tarde",null,"Vas a adorar Toledo"));
+		products.save(new Product("ToledoByEvening", activities,"Toledo","Tarde",null,"Vas a adorar Toledo",45));
 		activities = "Cena en hotel burbuja contemplando las estrellas";
-		products.save(new Product("ToledoByNight", activities,"Toledo","Noche",null,"Una noche de fantasía en Toledo"));
+		products.save(new Product("ToledoByNight", activities,"Toledo","Noche",null,"Una noche de fantasía en Toledo",50));
 		
 		//Sevilla experiences
 		activities = "Desayuno, visita guiada por el casco antiguo de Sevilla";
-		products.save(new Product("SevillaByMorning", activities,"Sevilla","Mañana",null,"Ideal para conocer Sevilla"));
+		products.save(new Product("SevillaByMorning", activities,"Sevilla","Mañana",null,"Ideal para conocer Sevilla",60));
 		activities = "Almuerzo con vistas al río Guadalquivir, kayak por el río";
-		products.save(new Product("SevillaByEvening", activities,"Sevilla","Tarde",null,"Vas a adorar Sevilla"));
+		products.save(new Product("SevillaByEvening", activities,"Sevilla","Tarde",null,"Vas a adorar Sevilla",80));
 		activities = "Cena en Tablao Flamenco con espectáculo";
-		products.save(new Product("SevillaByNight", activities,"Sevilla","Noche",null,"Una noche de fantasía en Sevilla"));
+		products.save(new Product("SevillaByNight", activities,"Sevilla","Noche",null,"Una noche de fantasía en Sevilla",30));
 		
 		//Pontevedra experiences
 		activities = "Desayuno, visita a enoteca con cata";
-		products.save(new Product("PontevedraByMorning", activities,"Pontevedra","Mañana",null,"Ideal para conocer Pontevedra"));
+		products.save(new Product("PontevedraByMorning", activities,"Pontevedra","Mañana",null,"Ideal para conocer Pontevedra",40));
 		activities = "Almuerzo con mariscada, clase de surf";
-		products.save(new Product("PontevedraByEvening", activities,"Pontevedra","Tarde",null,"Vas a adorar Pontevedra"));
+		products.save(new Product("PontevedraByEvening", activities,"Pontevedra","Tarde",null,"Vas a adorar Pontevedra",50));
 		activities = "Noche en hórreos con cena incluida";
-		products.save(new Product("PontevedraByNight", activities,"Pontevedra","Noche",null,"Una noche de fantasía en Pontevedra"));
+		products.save(new Product("PontevedraByNight", activities,"Pontevedra","Noche",null,"Una noche de fantasía en Pontevedra",60));
 		
 		
 	}
@@ -113,13 +123,28 @@ public class ProductController {
 		model.addAttribute("hora", time);
 		return "index";
 	}
-	@GetMapping("/product/{id}")
+	@GetMapping("/products/{id}")
 	public String showPost(Model model,HttpSession httpSession, @PathVariable long id) {
-
+		User user = users.findByName((httpSession.getAttribute("user")).toString());
 		Product product = products.findById(id).orElseThrow();
+		if(user!=null) {
+			if(user.containsProduct(product)) {
+				model.addAttribute("Carrito", true);
+			}
+		}
 		model.addAttribute("product", product);
 		model.addAttribute("User", httpSession.getValue("user"));
 		return "show_product";
+	}
+	
+	@GetMapping("/products/{id}/buy")
+	public String buyProduct(Model model,HttpSession httpSession, @PathVariable long id) {
+		Product product = products.findById(id).orElseThrow();
+		User user = users.findByName((httpSession.getAttribute("user")).toString());
+		user.addProduct(product);
+		users.save(user);
+		model.addAttribute("product", product);
+		return "product_cart";
 	}
 
 }

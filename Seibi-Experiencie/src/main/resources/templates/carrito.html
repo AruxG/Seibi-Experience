@@ -1,0 +1,22 @@
+<html>
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+	<h1>Carrito</h1>
+	{{#products}}
+	<br>
+	<p>Producto: {{name}}</p>
+	<p>Precio: {{price}}€</p>
+	</br>
+	{{/products}}
+	
+	{{^products}}
+	<a>Todavía no hay productos</a>
+	{{/products}}
+	<br>
+	<a href="/orders/new">Realizar pedido</a>
+	</br>
+</body>
+	<a href="/">Volver</a>
+</html>
