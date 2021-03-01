@@ -7,30 +7,32 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-public class Order {
+public class Orderz {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	
-	@ManyToOne
-	private User user;
-	@ManyToMany
-	private List<Product> products = new ArrayList<>();
-	private boolean complete;
-	private Date date;
 	
 	//Pago con tarjeta
 	private String mail;
 	private int cardNumber;
 	private int CVV;
+	private boolean complete;
+	private Date date;
 	
-	public Order() {
+	@ManyToOne
+	private User user;
+	
+	@ManyToMany
+	private List<Product> products;
+	
+	
+	public Orderz() {
 	}
 
-	public Order(User user, List<Product> products, boolean complete, Date date, String mail, int cNumber, int CVV) {
+	public Orderz(User user, List<Product> products, boolean complete, Date date, String mail, int cNumber, int CVV) {
 		super();
 		this.user = user;
-		this.products=products;
+		this.products=new ArrayList(products);
 		this.complete=complete;
 		this.date= date;
 		this.mail=mail;
@@ -94,8 +96,4 @@ public class Order {
 		this.CVV = CVV;
 	}
 	
-	public Order orElseThrow() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

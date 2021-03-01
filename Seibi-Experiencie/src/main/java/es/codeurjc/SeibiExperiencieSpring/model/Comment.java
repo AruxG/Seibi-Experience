@@ -1,9 +1,5 @@
 package es.codeurjc.SeibiExperiencieSpring.model;
 
-import java.sql.Date;
-
-import java.util.List;
-
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

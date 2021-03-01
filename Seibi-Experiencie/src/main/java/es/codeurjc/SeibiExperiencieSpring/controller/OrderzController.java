@@ -1,5 +1,6 @@
 package es.codeurjc.SeibiExperiencieSpring.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.codeurjc.SeibiExperiencieSpring.model.Order;
+import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
+import es.codeurjc.SeibiExperiencieSpring.model.Product;
 import es.codeurjc.SeibiExperiencieSpring.model.User;
-import es.codeurjc.SeibiExperiencieSpring.repository.OrderRepository;
+import es.codeurjc.SeibiExperiencieSpring.repository.OrderzRepository;
 import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
 
 @Controller
 @RequestMapping("/orders")
-public class OrderController {
+public class OrderzController {
 	
 	@Autowired
-	private OrderRepository orders;
+	private OrderzRepository orders;
 	@Autowired 
 	private UserRepository users;
 	
 	@GetMapping("/")
-	public Collection<Order> getOrders(){
+	public Collection<Orderz> getOrders(){
 		return orders.findAll();
 	}
 	@GetMapping("/new")
@@ -45,14 +47,13 @@ public class OrderController {
 				&&(num_tarjeta>=10000000&&num_tarjeta<=99999999)
 				&&(CVV>=100&& CVV<=999)) 
 		{
-			Order newOrder= new Order(user,user.getProducts(),true, new java.util.Date(), mail, num_tarjeta, CVV );
+			Orderz newOrder= new Orderz(user,user.getProducts(),true, new java.util.Date(), mail, num_tarjeta, CVV );
 			
 			//limpiar productos del usuario para la siguiente compra
 			
-			
-			user.getOrders().add(newOrder);
-			users.save(user);
 			orders.save(newOrder);
+			user.setProducts(new ArrayList<Product>());
+			users.save(user);
 			return "order_completed";
 		}
 		else {

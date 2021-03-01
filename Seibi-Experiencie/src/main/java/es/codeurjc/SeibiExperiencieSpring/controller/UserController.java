@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-
-import es.codeurjc.SeibiExperiencieSpring.model.Order;
-import es.codeurjc.SeibiExperiencieSpring.model.Comment;
 import es.codeurjc.SeibiExperiencieSpring.model.User;
 import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
 
@@ -37,9 +33,9 @@ public class UserController {
 	public String showUser(Model model, HttpSession httpSession){
 		model.addAttribute("user",httpSession.getAttribute("name_user"));
 		User user= users.findByName(httpSession.getAttribute("user").toString());
-		/*if( user!=null){
+		if( user!=null){
 		model.addAttribute("orders",user.getOrders());
-		}*/
+		}
 		return "show_user";
 	}
 	

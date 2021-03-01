@@ -14,14 +14,14 @@ public class User {
 	private String name;
 	private String password;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	private List<Order> orders = new ArrayList<>();
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Orderz> orders = new ArrayList<Orderz>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Comment>comments = new ArrayList<>();
+	private List<Comment>comments = new ArrayList<Comment>();
 	
 	@ManyToMany
-	private List<Product>products = new ArrayList<>();
+	private List<Product>products = new ArrayList<Product>();
 	
 	public User() {
 	}
@@ -30,7 +30,6 @@ public class User {
 		super();
 		this.name = name;
 		this.password = password;
-		this.comments = new ArrayList<Comment>();
 	}
 	
 	public Long getId() {
@@ -65,11 +64,11 @@ public class User {
 		this.products = products;
 	}
 	
-	public List<Order> getOrders() {
+	public List<Orderz> getOrders() {
 		return orders;
 	}
 	
-	public void setOrders(List<Order> orders) {
+	public void setOrders(List<Orderz> orders) {
 		this.orders = orders;
 	}
 	

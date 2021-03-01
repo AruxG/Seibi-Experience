@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.codeurjc.SeibiExperiencieSpring.model.Order;
+import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 import es.codeurjc.SeibiExperiencieSpring.model.Product;
 import es.codeurjc.SeibiExperiencieSpring.model.User;
-import es.codeurjc.SeibiExperiencieSpring.repository.OrderRepository;
+import es.codeurjc.SeibiExperiencieSpring.repository.OrderzRepository;
 import es.codeurjc.SeibiExperiencieSpring.repository.ProductRepository;
 import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
 
@@ -28,7 +28,7 @@ public class ProductController {
 	private ProductRepository products;
 	
 	@Autowired
-	private OrderRepository orders;
+	private OrderzRepository orders;
 	
 	@Autowired
 	private UserRepository users;
