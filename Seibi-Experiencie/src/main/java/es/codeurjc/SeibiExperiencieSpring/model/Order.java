@@ -1,6 +1,6 @@
 package es.codeurjc.SeibiExperiencieSpring.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,15 +21,21 @@ public class Order {
 	
 	//Pago con tarjeta
 	private String mail;
-	private String cardNumber;
+	private int cardNumber;
 	private int CVV;
 	
 	public Order() {
 	}
 
-	public Order(User user) {
+	public Order(User user, List<Product> products, boolean complete, Date date, String mail, int cNumber, int CVV) {
 		super();
 		this.user = user;
+		this.products=products;
+		this.complete=complete;
+		this.date= date;
+		this.mail=mail;
+		this.cardNumber=cNumber;
+		this.CVV= CVV;
 	}
 	
 	public Long getId() {
@@ -72,11 +78,11 @@ public class Order {
 		this.mail = mail;
 	}
 	
-	public String getCardNumber() {
+	public int getCardNumber() {
 		return cardNumber;
 	}
 	
-	public void setCardNumber(String cardNumber) {
+	public void setCardNumber(int cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 	

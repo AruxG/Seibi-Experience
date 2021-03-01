@@ -1,0 +1,28 @@
+<html>
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+	<h1>Resumen del pedido</h1>
+	{{#products}}
+	<br>
+	<p>Producto: {{name}} Precio: {{price}}€</p>
+	</br>
+	{{/products}}
+	<p>Total:</p>
+	<form action="realizar_pago" method="post">
+		<p>Correo electrónico:</p>
+		<input type='text' name='mail'/>
+		<p>Número de tarjeta <i>(8 dígitos)</i>:</p>
+		<input type='number' name='num_tarjeta' value='10000000'/>
+		<p>CVV de tarjeta <i>(3 dígitos)</i>:</p>
+		<input type='number' name='CVV' value='100'/>
+		<br>
+		<input type='submit' value='Realizar pago'/>
+	</form>
+	{{#error}}
+	<p><i>Debe rellenar correctamente todos los campos</i></p>
+	{{/error}}
+	<a href="/users/carrito">Volver</a>
+</body>
+</html>

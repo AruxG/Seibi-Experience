@@ -125,7 +125,10 @@ public class ProductController {
 	}
 	@GetMapping("/products/{id}")
 	public String showPost(Model model,HttpSession httpSession, @PathVariable long id) {
-		User user = users.findByName((httpSession.getAttribute("user")).toString());
+		User user=null;
+		if (httpSession.getAttribute("user")!=null){
+			user = users.findByName((httpSession.getAttribute("user")).toString());
+		}
 		Product product = products.findById(id).orElseThrow();
 		if(user!=null) {
 			if(user.containsProduct(product)) {

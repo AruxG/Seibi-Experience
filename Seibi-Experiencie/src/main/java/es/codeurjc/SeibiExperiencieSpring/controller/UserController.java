@@ -36,6 +36,10 @@ public class UserController {
 	@GetMapping("/show_user")
 	public String showUser(Model model, HttpSession httpSession){
 		model.addAttribute("user",httpSession.getAttribute("name_user"));
+		User user= users.findByName(httpSession.getAttribute("user").toString());
+		/*if( user!=null){
+		model.addAttribute("orders",user.getOrders());
+		}*/
 		return "show_user";
 	}
 	
@@ -75,7 +79,7 @@ public class UserController {
 	
 	@PostMapping("/signup")
 	public String signUp(Model model, HttpSession httpSession, @RequestParam String user, @RequestParam String password, @RequestParam String password2) {
-		if (users.findByName(user)!=null) {
+		if (users.findByName(user)!=null || user.equals("")) {
 			model.addAttribute("error2",true);
 			return "signup";
 		}else {

@@ -7,7 +7,7 @@
 	<p>Descripción: {{product.description}}</p>
 	<p>Actividades: {{product.activities}}</p>
 	<br></br>
-	
+	{{#User}}
 	{{#Carrito}}
 	<a>Ya está en tu carrito</a>
 	{{/Carrito}}
@@ -17,7 +17,10 @@
 	{{/Carrito}}
 	<a href="/users/carrito">Ir al carrito </a>
 	<br></br>
-	
+	{{/User}}
+	{{^User}}
+	<p><i>Se requiere de un usuario para poder comprar productos.</i></p>
+	{{/User}}
 	{{#product.comments}}
 	<p>Usuario: {{usuario.name}}</p>
 	<p>Comentario: {{text}}</p>
