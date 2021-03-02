@@ -1,8 +1,10 @@
 package es.codeurjc.SeibiExperiencieSpring.controller;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 import es.codeurjc.SeibiExperiencieSpring.model.Product;
 import es.codeurjc.SeibiExperiencieSpring.model.User;
 import es.codeurjc.SeibiExperiencieSpring.repository.OrderzRepository;
@@ -161,7 +162,9 @@ public class ProductController {
 		user.addProduct(product);
 		users.save(user);
 		model.addAttribute("product", product);
+		model.addAttribute("user", httpSession.getValue("user"));
 		return "product_cart";
 	}
+
 
 }

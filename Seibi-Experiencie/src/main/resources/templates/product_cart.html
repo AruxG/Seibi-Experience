@@ -3,8 +3,9 @@
 <meta charset="UTF-8"/>
 </head>
 <body>
-	<p>{{product.name}} ha sido añadido al carrito<p>
-	<a href="/users/carrito">Ir al carrito </a>
+{{>header}}
+	<h2>{{product.name}} ha sido añadido al carrito</h2>
 </body>
 	<a href="/">Volver</a>
+	{{>foot}}
 </html>

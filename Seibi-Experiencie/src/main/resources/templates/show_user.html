@@ -3,20 +3,26 @@
 	<meta charset="UTF-8"/>
 </head>
 <body>
-	<h1>Información de usuario</h1>
+{{>header_user}}
+	<h2>Información de usuario</h2>
 	<p>Nombre: {{user}}</p>
-	
+	<br>
 	{{#orders}}
 		<br>
 		<h3>Pedido número {{id}}</h3>
+		<p><b>Realizado:</b> {{date}}</p>
 		{{#products}}
-			<p>Producto: {{name}}   Precio: {{price}}€</p>
+			<p><b>Producto:</b> {{name}}   <b>Precio:</b> {{price}}€</p>
 		{{/products}}
-
-		<p>Total: {{total}}€</p>
+		<p><b>Total:</b> {{total}}€</p>
 		</br>
 	{{/orders}}
-	<a href="/">Página principal</a>
+	
+	{{^orders}}
+	<p><i>Todavía no se han realizado pedidos.</i></p>
+	{{/orders}}
+	</br>
 	<a href="logout"><i>Cerrar sesión</i></a>
 </body>
+{{>foot}}
 </html>

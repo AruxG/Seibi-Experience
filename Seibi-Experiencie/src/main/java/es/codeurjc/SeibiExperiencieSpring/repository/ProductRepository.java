@@ -2,6 +2,7 @@ package es.codeurjc.SeibiExperiencieSpring.repository;
 
 import java.util.Collection;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

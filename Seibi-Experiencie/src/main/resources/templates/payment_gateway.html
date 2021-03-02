@@ -3,13 +3,14 @@
 <meta charset="UTF-8"/>
 </head>
 <body>
-	<h1>Resumen del pedido</h1>
+{{>header}}
+	<h2>Resumen del pedido</h2>
 	{{#products}}
-	<br>
-	<p>Producto: {{name}} Precio: {{price}}€</p>
-	</br>
+	<p><b>Producto:</b> {{name}} <b>Precio:</b> {{price}}€</p>
 	{{/products}}
-	<p>Total: {{total}}€</p>
+	<p><b>Total:</b> {{total}}€</p>
+	<br></br>
+	<h3>Datos para realizar el pago</h3>
 	<form action="realizar_pago" method="post">
 		<p>Correo electrónico:</p>
 		<input type='text' name='mail'/>
@@ -25,4 +26,5 @@
 	{{/error}}
 	<a href="/users/carrito">Volver</a>
 </body>
+{{>foot}}
 </html>

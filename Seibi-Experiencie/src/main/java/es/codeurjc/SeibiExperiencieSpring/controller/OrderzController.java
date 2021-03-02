@@ -36,6 +36,7 @@ public class OrderzController {
 		User user = users.findByName((sesion.getAttribute("user")).toString());
 		model.addAttribute("products",user.getProducts());
 		model.addAttribute("total", user.sumTotal());
+		model.addAttribute("user", sesion.getValue("user"));
 		return "payment_gateway";
 	}
 	@PostMapping("/realizar_pago")
@@ -56,11 +57,13 @@ public class OrderzController {
 			orders.save(newOrder);
 			user.setProducts(new ArrayList<Product>());
 			users.save(user);
+			model.addAttribute("user", sesion.getValue("user"));
 			return "order_completed";
 		}
 		else {
 			model.addAttribute("products",user.getProducts());
 			model.addAttribute("error", true);
+			model.addAttribute("user", sesion.getValue("user"));
 			return "payment_gateway";
 		}
 	}

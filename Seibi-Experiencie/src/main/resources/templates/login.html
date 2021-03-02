@@ -3,6 +3,8 @@
 	<meta charset="UTF-8"/>
 </head>
 <body>
+{{>header_user}}
+	<h2>Iniciar sesión</h2>
 	{{#usedName}}
 	<p>El usuario {{usedName}} no está registrado</p>
 	{{/usedName}}
@@ -19,4 +21,5 @@
 	</form>
 		<a href="/users/signup">Registrarse</a>
 </body>
+{{>foot}}
 </html>

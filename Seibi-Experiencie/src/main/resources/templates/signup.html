@@ -3,6 +3,8 @@
 	<meta charset="UTF-8"/>
 </head>
 <body>
+{{>header_user}}
+	<h2>Registrar usuario</h2>
 	<form action="/users/signup" method="post">
 		<p>Usuario: </p>
 		<input type='text' name='user'/>
@@ -18,8 +20,11 @@
 		{{/error2}}
 		<p>
 		<input type='submit' value='Registrarse'/>
+		</p>
 		<br>
 		<a href="/users/login">Volver</a>
+		</br>
 	</form>
 </body>
+{{>foot}}
 </html>

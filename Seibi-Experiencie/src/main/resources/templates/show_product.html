@@ -13,23 +13,31 @@
 	<a>Ya está en tu carrito</a>
 	<form action="./{{product.id}}" method="post">
 		<input name="id_producto" type="hidden" value={{product.id}}>
+	<p>
 	<input type='submit' value='Eliminar producto'/>
+	</p>
 	</form>
 	{{/Carrito}}
 	
 	{{^Carrito}}
 	<a href="/products/{{product.id}}/buy">Añadir al carrito</a>
 	{{/Carrito}}
-	<a href="/users/carrito">Ir al carrito </a>
-	<br></br>
 	{{/user}}
+	<br></br>
+	<h3>Comentarios</h3>
 	{{^user}}
 	<p><i>Se requiere de un usuario para poder comprar productos.</i></p>
 	{{/user}}
+	
+	
 	{{#product.comments}}
-	<p>Usuario: {{usuario.name}}</p>
-	<p>Comentario: {{text}}</p>
+	<p><b>Usuario:</b> {{usuario.name}}</p>
+	<p><b>Comentario:</b> {{text}}</p>
 	<br></br>
+	{{/product.comments}}
+	
+	{{^product.comments}}
+	<p>Todavía no hay comentarios</p>
 	{{/product.comments}}
 	{{#user}}
 	<a href="/products/{{product.id}}/comments/create_comment">Añadir comentario</a>
@@ -39,7 +47,9 @@
 	{{/user}}
 	<br></br>
 </body>
+	<br></br>
 	<a href="/">Volver</a>
+	{{>foot}}
 </html>
 
 <!-- Comprar -->

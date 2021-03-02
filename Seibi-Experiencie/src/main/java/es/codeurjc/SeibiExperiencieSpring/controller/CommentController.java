@@ -35,13 +35,15 @@ public class CommentController{
 		return comments.findAll();
 	}
 	@GetMapping("/create_comment")
-	public String newComment(Model model) {
+	public String newComment(Model model,HttpSession httpSession) {
+		model.addAttribute("user", httpSession.getValue("user"));
 		return "create_comment";
 	}
 	@PostMapping("/comment_created")
 	public String savedComment(Model model,HttpSession httpSession, @RequestParam String text,@PathVariable Long id) {
 		Comment new_comment= new Comment(users.findByName((httpSession.getAttribute("user")).toString()), text, products.findById(id).orElseThrow());
 		comments.save(new_comment);
+		model.addAttribute("user", httpSession.getValue("user"));
 		model.addAttribute("comment", new_comment);
 		return "comment_created";
 	}
