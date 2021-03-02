@@ -35,6 +35,7 @@ public class OrderzController {
 	public String newOrder(Model model, HttpSession sesion) {
 		User user = users.findByName((sesion.getAttribute("user")).toString());
 		model.addAttribute("products",user.getProducts());
+		model.addAttribute("total", user.sumTotal());
 		return "payment_gateway";
 	}
 	@PostMapping("/realizar_pago")
@@ -47,7 +48,8 @@ public class OrderzController {
 				&&(num_tarjeta>=10000000&&num_tarjeta<=99999999)
 				&&(CVV>=100&& CVV<=999)) 
 		{
-			Orderz newOrder= new Orderz(user,user.getProducts(),true, new java.util.Date(), mail, num_tarjeta, CVV );
+			int total= user.sumTotal();
+			Orderz newOrder= new Orderz(user,user.getProducts(),true, new java.util.Date(), mail, num_tarjeta, CVV, total);
 			
 			//limpiar productos del usuario para la siguiente compra
 			

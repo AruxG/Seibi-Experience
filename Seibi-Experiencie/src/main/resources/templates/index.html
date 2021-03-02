@@ -28,38 +28,30 @@ function Seleccionar(ciudad,hora){
 </script>
 </head>
 <body onload="javascript:Seleccionar('{{ciudad}}','{{hora}}')">
-
+	{{>header}}
 	{{#welcome}}
-	<h1>Welcome!</h1>
+	<h1>¡Bienvenid@!</h1>
 	{{/welcome}}
 	
-	<h1>Seibi Experience</h1>
 	
-	{{#user}}
-	<a href=/users/show_user>{{user}}</a>
-	{{/user}}
-	
-	{{^user}}
-	<a href=/users/login>Iniciar sesión</a>
-	{{/user}}
 	
 	<h1>Productos</h1>
 	<form action="/" method="post">
-	<label>Choose a city:</label>
+	<label>Escoge una ciudad:</label>
 		<select name="city" id="city"> 
-			<option value="Any">Any</option>
+			<option value="Any">Cualquiera</option>
 			<option value="Madrid">Madrid </option> 
 			<option value="Barcelona">Barcelona</option> 
 			<option value="Toledo">Toledo</option> 
 			<option value="Sevilla">Sevilla</option> 
 			<option value="Pontevedra">Pontevedra</option> 
 		</select>
-	<label> Choose a time:</label>
+	<label> Escoge un horario:</label>
 		<select name="time" id="time"> 
-			<option value="Any">Any</option>
-			<option value="Mañana">Morning</option> 
-			<option value="Tarde">Evening</option> 
-			<option value="Noche">Night</option> 
+			<option value="Any">Cualquiera</option>
+			<option value="Mañana">Mañana</option> 
+			<option value="Tarde">Tarde</option> 
+			<option value="Noche">Noche</option> 
 		</select>
 	<input type="Submit" value="Filtrar">
 	</form>

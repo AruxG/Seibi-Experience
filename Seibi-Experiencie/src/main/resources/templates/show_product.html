@@ -3,13 +3,18 @@
 <meta charset="UTF-8"/>
 </head>
 <body>
-	<p>Producto: {{product.name}}</p>
+	{{>header}}
+	<h2>Producto: {{product.name}}</h2>
 	<p>Descripción: {{product.description}}</p>
 	<p>Actividades: {{product.activities}}</p>
 	<br></br>
-	{{#User}}
+	{{#user}}
 	{{#Carrito}}
 	<a>Ya está en tu carrito</a>
+	<form action="./{{product.id}}" method="post">
+		<input name="id_producto" type="hidden" value={{product.id}}>
+	<input type='submit' value='Eliminar producto'/>
+	</form>
 	{{/Carrito}}
 	
 	{{^Carrito}}
@@ -17,21 +22,21 @@
 	{{/Carrito}}
 	<a href="/users/carrito">Ir al carrito </a>
 	<br></br>
-	{{/User}}
-	{{^User}}
+	{{/user}}
+	{{^user}}
 	<p><i>Se requiere de un usuario para poder comprar productos.</i></p>
-	{{/User}}
+	{{/user}}
 	{{#product.comments}}
 	<p>Usuario: {{usuario.name}}</p>
 	<p>Comentario: {{text}}</p>
 	<br></br>
 	{{/product.comments}}
-	{{#User}}
+	{{#user}}
 	<a href="/products/{{product.id}}/comments/create_comment">Añadir comentario</a>
-	{{/User}}
-	{{^User}}
+	{{/user}}
+	{{^user}}
 	<p><i>Se requiere de un usuario para poder realizar comentarios.</i></p>
-	{{/User}}
+	{{/user}}
 	<br></br>
 </body>
 	<a href="/">Volver</a>

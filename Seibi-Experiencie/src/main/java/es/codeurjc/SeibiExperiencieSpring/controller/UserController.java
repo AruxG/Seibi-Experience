@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.codeurjc.SeibiExperiencieSpring.model.Product;
 import es.codeurjc.SeibiExperiencieSpring.model.User;
+import es.codeurjc.SeibiExperiencieSpring.repository.ProductRepository;
 import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
 
 @Controller
@@ -23,7 +25,8 @@ public class UserController {
 
 	@Autowired
 	private UserRepository users;
-	
+	@Autowired
+	private ProductRepository products;
 	@GetMapping("/")
 	public Collection<User> getUsers(){
 		return users.findAll();
@@ -97,6 +100,23 @@ public class UserController {
 	public String show_carrito(Model model, HttpSession httpSession) {
 		User user = users.findByName((httpSession.getAttribute("user")).toString());
 		model.addAttribute("products",user.getProducts());
+		int total=user.sumTotal();
+		if (total>0)
+			model.addAttribute("total", total);
+		model.addAttribute("user", httpSession.getValue("user"));
+		return "carrito";
+	}
+	@PostMapping("/carrito")
+	public String deleteProduct(Model model, HttpSession httpSession, @RequestParam Long id_producto) {
+		User user = users.findByName((httpSession.getAttribute("user")).toString());
+		Product p = products.findById(id_producto).orElseThrow();
+		user.removeProduct(p);
+		users.save(user);
+		model.addAttribute("products",user.getProducts());
+		int total=user.sumTotal();
+		if (total>0)
+			model.addAttribute("total", total);
+		model.addAttribute("user", httpSession.getValue("user"));
 		return "carrito";
 	}
 }

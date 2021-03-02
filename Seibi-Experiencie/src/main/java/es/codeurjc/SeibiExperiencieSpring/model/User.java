@@ -32,6 +32,13 @@ public class User {
 		this.password = password;
 	}
 	
+	public int sumTotal() {
+		int resultado=0;
+		for(Product p: this.products){
+			resultado+= p.getPrice();
+		}
+		return resultado;
+	}
 	public Long getId() {
 		return id;
 	}

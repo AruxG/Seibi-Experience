@@ -18,7 +18,7 @@ public class Orderz {
 	private int CVV;
 	private boolean complete;
 	private Date date;
-	
+	private int total;
 	@ManyToOne
 	private User user;
 	
@@ -29,7 +29,7 @@ public class Orderz {
 	public Orderz() {
 	}
 
-	public Orderz(User user, List<Product> products, boolean complete, Date date, String mail, int cNumber, int CVV) {
+	public Orderz(User user, List<Product> products, boolean complete, Date date, String mail, int cNumber, int CVV, int total) {
 		super();
 		this.user = user;
 		this.products=new ArrayList(products);
@@ -38,8 +38,9 @@ public class Orderz {
 		this.mail=mail;
 		this.cardNumber=cNumber;
 		this.CVV= CVV;
+		this.total= total;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

@@ -3,20 +3,29 @@
 <meta charset="UTF-8"/>
 </head>
 <body>
+{{>header}}
 	<h1>Carrito</h1>
 	{{#products}}
 	<br>
+	
 	<p>Producto: {{name}}</p>
 	<p>Precio: {{price}}€</p>
+	<form action="./carrito" method="post">
+		<input name="id_producto" type="hidden" value={{id}}>
+	<input type='submit' value='Eliminar producto'/>
+	</form>
 	</br>
 	{{/products}}
-	
-	{{^products}}
-	<a>Todavía no hay productos</a>
-	{{/products}}
+	{{#total}}
+	<p>Total: {{total}}€</p>
 	<br>
 	<a href="/orders/new">Realizar pedido</a>
 	</br>
+	{{/total}}
+	{{^products}}
+	<a>Todavía no hay productos</a>
+	{{/products}}
+	
 </body>
-	<a href="/">Volver</a>
+	<br><a href="/">Volver</a>
 </html>

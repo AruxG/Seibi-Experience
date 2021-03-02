@@ -136,10 +136,24 @@ public class ProductController {
 			}
 		}
 		model.addAttribute("product", product);
-		model.addAttribute("User", httpSession.getValue("user"));
+		model.addAttribute("user", httpSession.getValue("user"));
 		return "show_product";
 	}
-	
+	@PostMapping("/products/{id}")
+	public String deletePost(Model model, HttpSession httpSession, @RequestParam Long id_producto) {
+		User user = users.findByName((httpSession.getAttribute("user")).toString());
+		Product product = products.findById(id_producto).orElseThrow();
+		user.removeProduct(product);
+		users.save(user);
+		if(user!=null) {
+			if(user.containsProduct(product)) {
+				model.addAttribute("Carrito", true);
+			}
+		}
+		model.addAttribute("product", product);
+		model.addAttribute("user", httpSession.getValue("user"));
+		return "show_product";
+	}
 	@GetMapping("/products/{id}/buy")
 	public String buyProduct(Model model,HttpSession httpSession, @PathVariable long id) {
 		Product product = products.findById(id).orElseThrow();
