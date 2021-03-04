@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class Orderz {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
 	//Pago con tarjeta
