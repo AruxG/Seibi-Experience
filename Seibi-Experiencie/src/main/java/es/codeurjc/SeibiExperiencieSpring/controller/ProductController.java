@@ -138,6 +138,7 @@ public class ProductController {
 		}
 		model.addAttribute("product", product);
 		model.addAttribute("user", httpSession.getValue("user"));
+		model.addAttribute("usersession",httpSession.getAttribute("user"));
 		return "show_product";
 	}
 	@PostMapping("/products/{id}")
@@ -153,8 +154,12 @@ public class ProductController {
 		}
 		model.addAttribute("product", product);
 		model.addAttribute("user", httpSession.getValue("user"));
+		model.addAttribute("usersession",httpSession.getAttribute("user"));
 		return "show_product";
 	}
+	
+	
+	
 	@GetMapping("/products/{id}/buy")
 	public String buyProduct(Model model,HttpSession httpSession, @PathVariable long id) {
 		Product product = products.findById(id).orElseThrow();

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.SeibiExperiencieSpring.model.Comment;
+import es.codeurjc.SeibiExperiencieSpring.model.Product;
 import es.codeurjc.SeibiExperiencieSpring.repository.CommentRepository;
 import es.codeurjc.SeibiExperiencieSpring.repository.ProductRepository;
 import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
@@ -46,5 +47,15 @@ public class CommentController{
 		model.addAttribute("user", httpSession.getValue("user"));
 		model.addAttribute("comment", new_comment);
 		return "comment_created";
+	}
+	
+	@PostMapping("/delete_comment")
+	public String deleteComment(Model model, HttpSession httpSession, @RequestParam long id_comment, @PathVariable Long id) {
+		Comment delete = comments.findById(id_comment);
+		Product product = delete.getProduct();
+		comments.delete(delete);
+		model.addAttribute("user", httpSession.getValue("user"));
+		model.addAttribute("product", product);
+		return "delete_comment";
 	}
 }

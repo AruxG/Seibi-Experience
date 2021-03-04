@@ -1,6 +1,22 @@
 <html>
 <head>
 <meta charset="UTF-8"/>
+<script type="text/JavaScript">
+function usuarioComprobar(user_comment,user,id){
+	var text= "eliminar_comentario" + "/" + id;
+	var elim=document.getElementById(text);
+	console.log(user);
+	console.log(user_comment);
+	if(user==user_comment){
+		elim.style.display ="block";
+		console.log("coincide");
+	}else{
+		elim.style.display ="none";
+		console.log("No coincide");
+	}
+	
+}
+</script>
 </head>
 <body>
 	{{>header}}
@@ -33,6 +49,15 @@
 	{{#product.comments}}
 	<p><b>Usuario:</b> {{usuario.name}}</p>
 	<p><b>Comentario:</b> {{text}}</p>
+	<div id="eliminar_comentario/{{id}}" style="display: none;">
+	<form action="/products/{{product.id}}/comments/delete_comment" method="post">
+		<input name="id_comment" type="hidden" value={{id}}>
+	<p>
+	<input type='submit' value='Eliminar comentario'/>
+	</p>
+	</form>
+	</div>
+	<script>usuarioComprobar('{{usuario.name}}','{{usersession}}','{{id}}');</script>
 	<br></br>
 	{{/product.comments}}
 	
