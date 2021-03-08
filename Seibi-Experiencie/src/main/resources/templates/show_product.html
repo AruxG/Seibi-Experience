@@ -5,14 +5,14 @@
 function usuarioComprobar(user_comment,user,id){
 	var text= "eliminar_comentario" + "/" + id;
 	var elim=document.getElementById(text);
-	console.log(user);
-	console.log(user_comment);
+	//console.log(user);
+	//console.log(user_comment);
 	if(user==user_comment){
 		elim.style.display ="block";
-		console.log("coincide");
+		//console.log("coincide");
 	}else{
 		elim.style.display ="none";
-		console.log("No coincide");
+		//console.log("No coincide");
 	}
 	
 }
@@ -57,7 +57,9 @@ function usuarioComprobar(user_comment,user,id){
 	</p>
 	</form>
 	</div>
+	{{#usersession}}
 	<script>usuarioComprobar('{{usuario.name}}','{{usersession}}','{{id}}');</script>
+	{{/usersession}}
 	<br></br>
 	{{/product.comments}}
 	
@@ -74,7 +76,6 @@ function usuarioComprobar(user_comment,user,id){
 </body>
 	<br></br>
 	<a href="/">Volver</a>
-	{{>foot}}
 </html>
 
 <!-- Comprar -->
