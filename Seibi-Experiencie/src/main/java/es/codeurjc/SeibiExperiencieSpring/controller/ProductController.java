@@ -54,7 +54,7 @@ public class ProductController {
 
 			}
 		FileInputStream input = new FileInputStream(file);
-		MultipartFile image = new MockMultipartFile("file",file.getName(), "text/plain", IOUtils.toByteArray(input));
+		MultipartFile image = new MockMultipartFile("file",file.getName(), "image/png", IOUtils.toByteArray(input));
 	    byte[] bytes;
 	    Blob imagen = null;
         if (image != null) {
