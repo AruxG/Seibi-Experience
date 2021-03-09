@@ -3,8 +3,6 @@ package es.codeurjc.SeibiExperiencieSpring.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.awt.Image;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;

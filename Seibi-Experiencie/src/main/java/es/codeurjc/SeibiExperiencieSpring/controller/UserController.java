@@ -1,9 +1,7 @@
 package es.codeurjc.SeibiExperiencieSpring.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
+import java.util.Collection;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
