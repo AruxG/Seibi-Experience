@@ -21,8 +21,14 @@ function usuarioComprobar(user_comment,user,id){
 <body>
 	{{>header}}
 	<h2>Producto: {{product.name}}</h2>
-	<p>Descripción: {{product.description}}</p>
-	<p>Actividades: {{product.activities}}</p>
+	<p><b>Descripción:</b> {{product.description}}</p>
+	<p><b>Actividades:</b> {{product.activities}}</p>
+	{{#imagen}}
+	<img src="data:image/jpg;base64,{{imagen}}"/>
+	{{/imagen}}
+	{{^imagen}}
+	<p>No hay imagen</p>
+	{{/imagen}}
 	<br></br>
 	{{#user}}
 	{{#Carrito}}
@@ -74,8 +80,8 @@ function usuarioComprobar(user_comment,user,id){
 	{{/user}}
 	<br></br>
 </body>
-	<br></br>
 	<a href="/">Volver</a>
+	{{>foot}}
 </html>
 
 <!-- Comprar -->

@@ -3,9 +3,10 @@ package es.codeurjc.SeibiExperiencieSpring.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mysql.cj.jdbc.Blob;
 
 import java.awt.Image;
+import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,7 @@ public class Product {
 	private Blob imageFile;
 
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<Comment> comments;
+	private List<Comment> comments = new ArrayList<Comment>();
 	
 	@ManyToMany
 	private List<Orderz> orders;
@@ -34,13 +35,13 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(String name, String activities, String city, String time, String image, String description,int price ) {
+	public Product(String name, String activities, String city, String time, Blob imageFile, String description,int price ) {
 		super();
 		this.name = name;
 		this.activities = activities;
 		this.city = city;
 		this.time = time;
-		this.image = image;
+		this.imageFile = imageFile;
 		this.description = description;
 		this.price = price;
 	}
@@ -85,12 +86,12 @@ public class Product {
 		this.time = time;
 	}
 	
-	public String getImage() {
-		return image;
+	public Blob getImage() {
+		return imageFile;
 	}
 	
-	public void setImage(String image) {
-		this.image = image;
+	public void setImage(Blob imageFile) {
+		this.imageFile = imageFile;
 	}
 	
 	public String getDescription() {
