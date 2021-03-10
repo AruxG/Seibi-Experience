@@ -17,7 +17,7 @@ public class User {
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Orderz> orders = new ArrayList<Orderz>();
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Comment>comments = new ArrayList<Comment>();
 	
 	@ManyToMany
