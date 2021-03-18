@@ -2,9 +2,12 @@ package es.codeurjc.SeibiExperiencieSpring.controller;
 
 
 import java.util.Collection;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,10 +45,12 @@ public class UserController {
 	
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model, HttpServletRequest request) {
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+		 model.addAttribute("token", token.getToken()); 
 		return "login";
 	}
-	
+	/*
 	@PostMapping("/login")
 	public String login(Model model,HttpSession httpSession, @RequestParam String user, @RequestParam String password){
 		
@@ -63,6 +68,8 @@ public class UserController {
 			return "login";
 		}
 	}
+	
+	*/
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.setAttribute("name_user", null);

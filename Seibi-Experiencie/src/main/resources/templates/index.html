@@ -54,6 +54,7 @@ function Seleccionar(ciudad,hora){
 			<option value="Noche">Noche</option> 
 		</select>
 	<input type="Submit" value="Filtrar">
+	<input type="hidden" name="_csrf" value="{{token}}" />
 	</form>
 	<br>
 	{{#products}}

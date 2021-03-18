@@ -13,6 +13,7 @@
 	<form action="./carrito" method="post">
 		<input name="id_producto" type="hidden" value={{id}}>
 	<input type='submit' value='Eliminar producto'/>
+	<input type="hidden" name="_csrf" value="{{token}}" />
 	</form>
 	</br>
 	{{/products}}
