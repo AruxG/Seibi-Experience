@@ -28,7 +28,7 @@ public class UserController {
 	private UserRepository users;
 	@Autowired
 	private ProductRepository products;
-	@GetMapping("/")
+	/*@GetMapping("/")
 	public Collection<User> getUsers(){
 		return users.findAll();
 	}
@@ -43,7 +43,7 @@ public class UserController {
 		return "show_user";
 	}
 	
-	
+	*/
 	@GetMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
 		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
@@ -75,7 +75,7 @@ public class UserController {
 		session.setAttribute("name_user", null);
 		session.setAttribute("user", null);
 		return "user_unloged";
-	}
+	}/*
 	@GetMapping("/signup")
 	public String signUp(){
 		return "signup";
@@ -123,5 +123,5 @@ public class UserController {
 			model.addAttribute("total", total);
 		model.addAttribute("user", httpSession.getValue("user"));
 		return "carrito";
-	}
+	}*/
 }

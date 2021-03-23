@@ -7,6 +7,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -140,7 +141,23 @@ public class ProductController {
 		
 
 	}
-	
+	@GetMapping("/private")
+	public String privatePage(Model model, HttpServletRequest request) {
+
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name);
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+		return "private";
+	}
+
+	@GetMapping("/admin")
+	public String admin() {
+		return "admin";
+	}
 	@GetMapping("/")
 	public String showPosts(Model model, HttpSession session,@PageableDefault(size = 5) Pageable page) {
 		Page<Product> prod = products.findAll(page);

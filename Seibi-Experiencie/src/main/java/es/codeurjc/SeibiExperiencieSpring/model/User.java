@@ -12,7 +12,10 @@ public class User {
 	private long id;
 	
 	private String name;
-	private String password;
+	private String passwordHash;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles= new ArrayList<String>();
 	
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Orderz> orders = new ArrayList<Orderz>();
@@ -26,11 +29,12 @@ public class User {
 	public User() {
 	}
 
-	public User(String name, String password) {
-		super();
+	public User(String name, String encodedPassword, String... roles) {
 		this.name = name;
-		this.password = password;
+		this.passwordHash = encodedPassword;
+		this.roles = List.of(roles);
 	}
+
 	
 	public int sumTotal() {
 		int resultado=0;
@@ -46,7 +50,12 @@ public class User {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+	public List<String> getRoles() {
+		return this.roles;
+	}
+	public void setRoles(List<String> roles) {
+		this.roles=roles;
+	}
 	public String getName() {
 		return name;
 	}
@@ -56,11 +65,11 @@ public class User {
 	}
 	
 	public String getPassword() {
-		return password;
+		return passwordHash;
 	}
 	
 	public void setPassword(String password) {
-		this.password = password;
+		this.passwordHash = password;
 	}
 	
 	public List<Product> getProducts() {
