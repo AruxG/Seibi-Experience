@@ -30,15 +30,24 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 	 http.authorizeRequests().antMatchers("/users/login").permitAll();
 	 http.authorizeRequests().antMatchers("/products/{id}").permitAll();
 	 http.authorizeRequests().antMatchers("/users/signup").permitAll();
+	 http.authorizeRequests().antMatchers("users/logout").permitAll();
 	 
 	 // Private pages (all other pages)
-	 http.authorizeRequests().anyRequest().authenticated();
-	 http.authorizeRequests().antMatchers("/private").hasAnyRole("USER"); 
+	 //Productos
+	 http.authorizeRequests().antMatchers("/products/{id}/buy").hasAnyRole("USER"); 
+	 //Comentarios
+	 http.authorizeRequests().antMatchers("/products/{id}/comments/create_comment").hasAnyRole("USER"); 
+	 http.authorizeRequests().antMatchers("/products/{id}/comments/comment_created").hasAnyRole("USER"); 
+	 http.authorizeRequests().antMatchers("/products/{id}/comments/delete_comment").hasAnyRole("USER"); 
+	 
+	 http.authorizeRequests().antMatchers("/orders/new").hasAnyRole("USER"); 
+	 http.authorizeRequests().antMatchers("/orders/realizar_pago").hasAnyRole("USER"); 
+	 http.authorizeRequests().antMatchers("/orders").hasAnyRole("USER"); 
 	 http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
 	 
 	 // Login form
 	 http.formLogin().loginPage("/users/login");
-	 http.formLogin().usernameParameter("user");
+	 http.formLogin().usernameParameter("username");
 	 http.formLogin().passwordParameter("password");
 	 http.formLogin().defaultSuccessUrl("/users/user_loged");
 	 http.formLogin().failureUrl("/users/login");
@@ -53,14 +62,6 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	 protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-	 // User
-	 auth.inMemoryAuthentication()
-	 .withUser("user").password("pass").roles("USER");
-	 
-	 auth.inMemoryAuthentication()
-	 .withUser("admin").password("adminpass").roles("USER","ADMIN");
-	 
 	 auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	 }
 	

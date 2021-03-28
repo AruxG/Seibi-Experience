@@ -8,5 +8,5 @@ import es.codeurjc.SeibiExperiencieSpring.model.User;
 
 public interface UserRepository extends CrudRepository<User,Long>{
 	
-	User findByName(String user);
+	Optional<User> findByName(String user);
 }

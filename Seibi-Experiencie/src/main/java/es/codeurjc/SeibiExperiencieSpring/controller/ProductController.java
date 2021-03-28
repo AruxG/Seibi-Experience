@@ -141,25 +141,24 @@ public class ProductController {
 		
 
 	}
-	@GetMapping("/private")
-	public String privatePage(Model model, HttpServletRequest request) {
-
-		String name = request.getUserPrincipal().getName();
-		
-		User user = users.findByName(name);
-
-		model.addAttribute("username", user.getName());		
-		model.addAttribute("admin", request.isUserInRole("ADMIN"));
-
-		return "private";
-	}
 
 	@GetMapping("/admin")
 	public String admin() {
 		return "admin";
 	}
+	
 	@GetMapping("/")
-	public String showPosts(Model model, HttpSession session,@PageableDefault(size = 5) Pageable page) {
+	public String showPosts(Model model, HttpSession session,HttpServletRequest request,@PageableDefault(size = 5) Pageable page) {
+		if(request.getUserPrincipal()!=null) {
+			String name = request.getUserPrincipal().getName();
+			
+			User user = users.findByName(name).orElseThrow();
+			if (user != null) {
+				model.addAttribute("username", user.getName());		
+				model.addAttribute("user",user.getName());
+				model.addAttribute("admin", request.isUserInRole("ADMIN"));
+			}
+		}
 		Page<Product> prod = products.findAll(page);
 		
 		model.addAttribute("products", prod);
@@ -169,7 +168,6 @@ public class ProductController {
 		model.addAttribute("prevPage", prod.getNumber()-1);		
 		
 		model.addAttribute("welcome", session.isNew());
-		model.addAttribute("user",session.getValue("user"));
 		model.addAttribute("ciudad", "Any");
 		model.addAttribute("hora", "Any");
 		return "index";
@@ -180,8 +178,19 @@ public class ProductController {
 			HttpSession session, 
 			@PageableDefault(size = 5) Pageable page, 
 			@RequestParam String city, 
-			@RequestParam String time) 
+			@RequestParam String time,
+			HttpServletRequest request) 
 	{
+		if(request.getUserPrincipal()!=null) {
+			String name = request.getUserPrincipal().getName();
+			
+			User user = users.findByName(name).orElseThrow();
+			if (user != null) {
+				model.addAttribute("username", user.getName());		
+				model.addAttribute("user",user.getName());
+				model.addAttribute("admin", request.isUserInRole("ADMIN"));
+			}
+		}
 		Page<Product> productsFiltered;
 		if(!city.equals("Any") && !time.equals("Any")) {
 			productsFiltered= products.findByCityAndTime(city, time, page);
@@ -198,17 +207,22 @@ public class ProductController {
 		model.addAttribute("hasNext", productsFiltered.hasNext());
 		model.addAttribute("nextPage", productsFiltered.getNumber()+1);
 		model.addAttribute("prevPage", productsFiltered.getNumber()-1);	
-		model.addAttribute("user",session.getValue("user"));
 		model.addAttribute("ciudad", city);
 		model.addAttribute("hora", time);
 		return "index";
 	}
 	@GetMapping("/products/{id}")
-	public String showPost(Model model,HttpSession httpSession, @PathVariable long id) throws SQLException {
-		User user=null;
-		if (httpSession.getAttribute("user")!=null){
-			user = users.findByName((httpSession.getAttribute("user")).toString());
+	public String showPost(Model model,HttpSession httpSession,HttpServletRequest request, @PathVariable long id) throws SQLException {
+		User user = null;
+		if(request.getUserPrincipal()!=null) {
+			String name = request.getUserPrincipal().getName();
+			user = users.findByName(name).orElseThrow();
+			model.addAttribute("username", user.getName());		
+			model.addAttribute("user",user.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+			model.addAttribute("usersession",user.getName());
 		}
+		
 		Product product = products.findById(id).orElseThrow();
 		if(user!=null) {
 			if(user.containsProduct(product)) {
@@ -225,14 +239,23 @@ public class ProductController {
 	        }
 		}
 		model.addAttribute("product", product);
-		model.addAttribute("user", httpSession.getValue("user"));
-		model.addAttribute("usersession",httpSession.getAttribute("user"));
 		return "show_product";
 	}
+	
 	@PostMapping("/products/{id}")
-	public String deletePost(Model model, HttpSession httpSession, @RequestParam Long id_producto) throws SQLException {
-		User user = users.findByName((httpSession.getAttribute("user")).toString());
-		Product product = products.findById(id_producto).orElseThrow();
+	public String deleteProduct(Model model,HttpServletRequest request, @RequestParam Long id) throws SQLException {
+		User user = null;
+		if(request.getUserPrincipal()!=null) {
+			String name = request.getUserPrincipal().getName();
+			user = users.findByName(name).orElseThrow();
+			model.addAttribute("username", user.getName());		
+			model.addAttribute("user",user.getName());
+			model.addAttribute("admin", request.isUserInRole("ADMIN"));
+			model.addAttribute("usersession",user.getName());
+		}
+		
+		Product product = products.findById(id).orElseThrow();
+		
 		user.removeProduct(product);
 		users.save(user);
 		if(user!=null) {
@@ -249,26 +272,31 @@ public class ProductController {
 	            model.addAttribute("imagen", s);
 	        }
 		}
+		
 		model.addAttribute("product", product);
-		model.addAttribute("user", httpSession.getValue("user"));
-		model.addAttribute("usersession",httpSession.getAttribute("user"));
 		return "show_product";
 	}
 
 	@GetMapping("/products/{id}/buy")
-	public String buyProduct(Model model,HttpSession httpSession, @PathVariable long id) {
+	public String buyProduct(Model model, @PathVariable long id,HttpServletRequest request) {
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		
 		Product product = products.findById(id).orElseThrow();
-		User user = users.findByName((httpSession.getAttribute("user")).toString());
 		user.addProduct(product);
 		users.save(user);
 		model.addAttribute("product", product);
-		model.addAttribute("user", httpSession.getValue("user"));
 		return "product_cart";
 	}
 
 	
 	@PostMapping("/subirFoto")
-	public String subirFoto(Model model, HttpSession httpSession, @RequestParam MultipartFile image, @RequestParam Long id_producto) {
+	public String subirFoto(Model model, @RequestParam MultipartFile image, @RequestParam Long id_producto) {
 		Product product = products.findById(id_producto).orElseThrow();
 		byte[] bytes;
 

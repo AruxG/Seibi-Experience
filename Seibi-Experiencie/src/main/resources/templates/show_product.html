@@ -5,14 +5,16 @@
 function usuarioComprobar(user_comment,user,id){
 	var text= "eliminar_comentario" + "/" + id;
 	var elim=document.getElementById(text);
-	//console.log(user);
-	//console.log(user_comment);
+	console.log(user);
+	console.log(user_comment);
 	if(user==user_comment){
-		elim.style.display ="block";
-		//console.log("coincide");
+	console.log("coincide");
+		elim.style="display :block;";
+		
 	}else{
-		elim.style.display ="none";
-		//console.log("No coincide");
+		console.log("No coincide");
+		elim.style="display :none;";
+		
 	}
 	
 }
@@ -30,11 +32,10 @@ function usuarioComprobar(user_comment,user,id){
 	<p>No hay imagen</p>
 	{{/imagen}}
 	<br></br>
-	{{#user}}
 	{{#Carrito}}
 	<a>Ya está en tu carrito</a>
 	<form action="./{{product.id}}" method="post">
-		<input name="id_producto" type="hidden" value={{product.id}}>
+		<input name="id" type="hidden" value={{product.id}}>
 		<input type="hidden" name="_csrf" value="{{token}}" />
 	<p>
 	<input type='submit' value='Eliminar producto'/>
@@ -45,13 +46,7 @@ function usuarioComprobar(user_comment,user,id){
 	{{^Carrito}}
 	<a href="/products/{{product.id}}/buy">Añadir al carrito</a>
 	{{/Carrito}}
-	{{/user}}
-	
-	{{^user}}
-	<br>
-	<p><i>Se requiere de un usuario para poder comprar productos.</i></p>
-	</br>
-	{{/user}}
+
 	
 	<h3>Comentarios</h3>
 	{{#product.comments}}

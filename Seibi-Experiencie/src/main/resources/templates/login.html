@@ -13,11 +13,11 @@
 	{{/error}}
 	<form action="./login" method="post">
 		<p>Usuario: </p>
-		<input type='text' name='username'/>
+		<input type="text" name="username"/>
 		<p>Contraseña:</p>
-		<input type='password' name='password'/>
+		<input type="password" name="password"/>
 		<p>
-		<input type='submit' value='Iniciar sesión'/>
+		<input type="submit" value="Iniciar sesión"/>
 		<input type="hidden" name="_csrf" value="{{token}}" />
 	</form>
 		<a href="/users/signup">Registrarse</a>

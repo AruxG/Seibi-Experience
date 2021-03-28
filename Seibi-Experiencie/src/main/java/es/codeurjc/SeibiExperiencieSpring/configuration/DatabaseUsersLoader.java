@@ -13,15 +13,17 @@ import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
 public class DatabaseUsersLoader {
  
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository users;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
  
     @PostConstruct
     private void initDatabase() {
-        
-        userRepository.save(new User("user", passwordEncoder.encode("pass"), "USER"));
-        userRepository.save(new User("admin", passwordEncoder.encode("adminpass"), "USER", "ADMIN"));
+    	if(users.count()==0) {
+        	users.save(new User("user", passwordEncoder.encode("pass"), "USER"));
+        	users.save(new User("admin", passwordEncoder.encode("adminpass"), "USER", "ADMIN"));
+        }
+       
     }
 }

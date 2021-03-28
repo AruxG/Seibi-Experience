@@ -2,6 +2,8 @@ package es.codeurjc.SeibiExperiencieSpring.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,16 +33,27 @@ public class OrderzController {
 		return orders.findAll();
 	}
 	@GetMapping("/new")
-	public String newOrder(Model model, HttpSession sesion) {
-		User user = users.findByName((sesion.getAttribute("user")).toString());
+	public String newOrder(Model model,HttpServletRequest request) {
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		model.addAttribute("products",user.getProducts());
 		model.addAttribute("total", user.sumTotal());
-		model.addAttribute("user", sesion.getValue("user"));
 		return "payment_gateway";
 	}
 	@PostMapping("/realizar_pago")
-	public String orderPayment(Model model, HttpSession sesion, @RequestParam String mail, @RequestParam int num_tarjeta, @RequestParam int CVV) {
-		User user = users.findByName((sesion.getAttribute("user")).toString());
+	public String orderPayment(Model model,HttpServletRequest request, @RequestParam String mail, @RequestParam int num_tarjeta, @RequestParam int CVV) {
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		if ((!mail.equals("")&&(mail.endsWith("@gmail.com")
 				|| mail.endsWith("@gmail.es")
 				|| mail.endsWith("@hotmail.com")
@@ -56,13 +69,11 @@ public class OrderzController {
 			orders.save(newOrder);
 			user.setProducts(new ArrayList<Product>());
 			users.save(user);
-			model.addAttribute("user", sesion.getValue("user"));
 			return "order_completed";
 		}
 		else {
 			model.addAttribute("products",user.getProducts());
 			model.addAttribute("error", true);
-			model.addAttribute("user", sesion.getValue("user"));
 			return "payment_gateway";
 		}
 	}

@@ -5,7 +5,7 @@
 <body>
 {{>header_user}}
 	<h2>Información de usuario</h2>
-	<p>Nombre: {{user}}</p>
+	<p>Nombre: {{username}}</p>
 	<br>
 	{{#orders}}
 		<br>
@@ -22,7 +22,10 @@
 	<p><i>Todavía no se han realizado pedidos.</i></p>
 	{{/orders}}
 	</br>
-	<a href="logout"><i>Cerrar sesión</i></a>
+	<form action="/users/logout" method="post">
+		<input type="hidden" name="_csrf" value="{{token}}"/>
+		<input type="submit" value="Sign Out" />
+	</form>
 </body>
 {{>foot}}
 </html>

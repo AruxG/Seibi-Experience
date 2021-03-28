@@ -12,7 +12,7 @@ public class User {
 	private long id;
 	
 	private String name;
-	private String passwordHash;
+	private String encodedPassword;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles= new ArrayList<String>();
@@ -31,7 +31,7 @@ public class User {
 
 	public User(String name, String encodedPassword, String... roles) {
 		this.name = name;
-		this.passwordHash = encodedPassword;
+		this.encodedPassword = encodedPassword;
 		this.roles = List.of(roles);
 	}
 
@@ -65,11 +65,11 @@ public class User {
 	}
 	
 	public String getPassword() {
-		return passwordHash;
+		return encodedPassword;
 	}
 	
 	public void setPassword(String password) {
-		this.passwordHash = password;
+		this.encodedPassword = password;
 	}
 	
 	public List<Product> getProducts() {

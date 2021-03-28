@@ -2,6 +2,7 @@ package es.codeurjc.SeibiExperiencieSpring.controller;
 
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import es.codeurjc.SeibiExperiencieSpring.model.Product;
 import es.codeurjc.SeibiExperiencieSpring.model.User;
@@ -28,26 +30,31 @@ public class UserController {
 	private UserRepository users;
 	@Autowired
 	private ProductRepository products;
-	/*@GetMapping("/")
-	public Collection<User> getUsers(){
-		return users.findAll();
-	}
-	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	 
+
 	@GetMapping("/show_user")
-	public String showUser(Model model, HttpSession httpSession){
-		model.addAttribute("user",httpSession.getAttribute("name_user"));
-		User user= users.findByName(httpSession.getAttribute("user").toString());
+	public String showUser(Model model,HttpServletRequest request){
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		if( user!=null){
 		model.addAttribute("orders",user.getOrders());
 		}
 		return "show_user";
 	}
 	
-	*/
+	
 	@GetMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
 		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
 		 model.addAttribute("token", token.getToken()); 
+		 
 		return "login";
 	}
 	/*
@@ -70,29 +77,40 @@ public class UserController {
 	}
 	
 	*/
+	
+	@GetMapping("/user_loged")
+	public String userLoged(Model model, HttpServletRequest request) {
+
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		return "user_loged";
+	}
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.setAttribute("name_user", null);
-		session.setAttribute("user", null);
 		return "user_unloged";
-	}/*
+	}
 	@GetMapping("/signup")
 	public String signUp(){
 		return "signup";
 	}
 	
 	@PostMapping("/signup")
-	public String signUp(Model model, HttpSession httpSession, @RequestParam String user, @RequestParam String password, @RequestParam String password2) {
-		if (users.findByName(user)!=null || user.equals("")) {
+	public String signUp(Model model, @RequestParam String user, @RequestParam String password, @RequestParam String password2) {
+		Optional<User> userold = users.findByName(user);
+		if (userold.isPresent() || user.equals("")) {
 			model.addAttribute("error2",true);
 			return "signup";
 		}else {
 			if(password.equals(password2)) {
-				User new_User = new User(user,password);
+				User new_User = new User(user,passwordEncoder.encode(password),"USER");
 				users.save(new_User);
-				httpSession.setAttribute("name_user", new_User.getName());
-				httpSession.setAttribute("user", new_User.getName());
-				model.addAttribute("user",httpSession.getAttribute("name_user"));
+				model.addAttribute("user",new_User.getName());
 				return "user_created";
 			}else {
 				model.addAttribute("error",true);
@@ -102,18 +120,30 @@ public class UserController {
 	}
 	
 	@GetMapping("/carrito")
-	public String show_carrito(Model model, HttpSession httpSession) {
-		User user = users.findByName((httpSession.getAttribute("user")).toString());
+	public String show_carrito(Model model,HttpServletRequest request) {
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		model.addAttribute("products",user.getProducts());
 		int total=user.sumTotal();
 		if (total>0)
 			model.addAttribute("total", total);
-		model.addAttribute("user", httpSession.getValue("user"));
 		return "carrito";
 	}
+	
 	@PostMapping("/carrito")
-	public String deleteProduct(Model model, HttpSession httpSession, @RequestParam Long id_producto) {
-		User user = users.findByName((httpSession.getAttribute("user")).toString());
+	public String deleteProduct(Model model, @RequestParam Long id_producto,HttpServletRequest request) {
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		Product p = products.findById(id_producto).orElseThrow();
 		user.removeProduct(p);
 		users.save(user);
@@ -121,7 +151,6 @@ public class UserController {
 		int total=user.sumTotal();
 		if (total>0)
 			model.addAttribute("total", total);
-		model.addAttribute("user", httpSession.getValue("user"));
 		return "carrito";
-	}*/
+	}
 }
