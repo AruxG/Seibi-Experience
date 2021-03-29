@@ -71,7 +71,11 @@ function usuarioComprobar(user_comment,user,id){
 	{{/product.comments}}
 
 	<a href="/products/{{product.id}}/comments/create_comment">Añadir comentario</a>
-
+	<!--  
+	{{#admin}}
+	<a href="/products/{{product.id}}/delete_product">Eliminar producto</a>
+	{{/admin}}
+	-->
 	<br></br>
 </body>
 	{{>foot}}

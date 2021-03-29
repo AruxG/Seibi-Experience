@@ -142,10 +142,6 @@ public class ProductController {
 
 	}
 
-	@GetMapping("/admin")
-	public String admin() {
-		return "admin";
-	}
 	
 	@GetMapping("/")
 	public String showPosts(Model model, HttpSession session,HttpServletRequest request,@PageableDefault(size = 5) Pageable page) {
@@ -294,7 +290,70 @@ public class ProductController {
 		return "product_cart";
 	}
 
+	@GetMapping("/admin")
+	public String anadirProducto(Model model,HttpServletRequest request) {
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		return "insert_product";
+	}
 	
+	@PostMapping("/admin/addProduct")
+	public String productoAnadido(Model model, HttpServletRequest request,
+			@RequestParam String name,@RequestParam String city, @RequestParam String time,
+			@RequestParam String activities, @RequestParam String description,@RequestParam int price,
+			@RequestParam MultipartFile image) {
+		String nameuser = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(nameuser).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		byte[] bytes;
+
+        if (image != null) {
+            try {
+                // Por si se quiere guardar tambien el nombre y el tamaño de la imagen
+                String nombreFoto = image.getOriginalFilename();
+                long tamañoFoto = image.getSize();
+
+                bytes = image.getBytes();
+
+                //String formatName = nombreFoto.substring(nombreFoto.lastIndexOf(".") + 1);
+                //bytes = imageServ.resize(bytes, 200, 200, formatName);
+
+                Blob imagen = new javax.sql.rowset.serial.SerialBlob(bytes);
+
+                String bphoto = java.util.Base64.getEncoder().encodeToString(bytes);
+                Product product = new Product(name,activities,city,time,imagen,description,price);
+                products.save(product);
+            }
+            catch (Exception exc){
+                return "Fallo al establecer la imagen de perfil";
+            }
+        }
+		return "product_added";
+	}
+	/*
+	@GetMapping("/products/{id}/delete_product")
+	public String deleteProduct(Model model,@PathVariable Long id, HttpServletRequest request) {
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("username", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
+		Product product = products.findById(id).orElseThrow();
+		products.delete(product);
+		return "delete_product";
+	}
+	*/
 	@PostMapping("/subirFoto")
 	public String subirFoto(Model model, @RequestParam MultipartFile image, @RequestParam Long id_producto) {
 		Product product = products.findById(id_producto).orElseThrow();

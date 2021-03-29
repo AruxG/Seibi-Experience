@@ -1,0 +1,43 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+</head>
+<body>
+{{>header}}
+	<form action="/admin/addProduct" method="post" enctype="multipart/form-data">
+		<h1>Añadir producto</h1>
+		<label>Nombre del producto</label>
+		<input type='text' name='name'/>
+		<p>
+		<label>Escoge una ciudad:</label>
+		<select name="city" id="city"> 
+			<option value="Madrid">Madrid </option> 
+			<option value="Barcelona">Barcelona</option> 
+			<option value="Toledo">Toledo</option> 
+			<option value="Sevilla">Sevilla</option> 
+			<option value="Pontevedra">Pontevedra</option> 
+		</select>
+		<label>Escoge un horario:</label>
+		<select name="time" id="time"> 
+			<option value="Mañana">Mañana</option> 
+			<option value="Tarde">Tarde</option> 
+			<option value="Noche">Noche</option> 
+		</select>
+		</p>
+		<p>Actividades:</p>
+		<textarea name='activities' rows=3 cols=40></textarea>
+		<p>Descripción:</p>
+		<textarea name='description' rows=3 cols=40></textarea>
+		<p>Precio:</p>
+		<input type='int' name='price'/>
+		<p>Sube una foto:</p>
+		<input type='file' name='image' accept=".jpg, .jpeg, .png">
+		<p>
+		<input type='submit' value='Guardar'/>
+		</p>
+		<input type="hidden" name="_csrf" value="{{token}}" />
+	</form>
+	<a href="../">Volver</a>
+</body>
+{{>foot}}
+</html>
