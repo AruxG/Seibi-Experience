@@ -3,6 +3,7 @@ package es.codeurjc.SeibiExperiencieServices.PDFService;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
+
+import es.codeurjc.SeibiExperiencieServices.model.Orderz;
 
 public class PDFExporter {
 	public String pedido;

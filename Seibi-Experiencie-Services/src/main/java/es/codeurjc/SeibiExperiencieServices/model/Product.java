@@ -1,16 +1,16 @@
-package es.codeurjc.SeibiExperiencieSpring.model;
+package es.codeurjc.SeibiExperiencieServices.model;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Product implements java.io.Serializable {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//@Entity
+public class Product {
+	//@Id
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	private String name;
@@ -20,12 +20,12 @@ public class Product implements java.io.Serializable {
 	private String image;
 	private String description;
 	private int price;
-	@Lob
-	@JsonIgnore
-	private transient Blob imageFile;
+	//@Lob
+	//@JsonIgnore
+	private Blob imageFile;
 
-	@OneToMany(mappedBy="product",cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<Comment> comments = new ArrayList<Comment>();
+	//@OneToMany(mappedBy="product",cascade=CascadeType.ALL, orphanRemoval=true)
+	//private List<Comment> comments = new ArrayList<Comment>();
 	
 	
 	public Product() {

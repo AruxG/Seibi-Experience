@@ -1,13 +1,14 @@
 package es.codeurjc.SeibiExperiencieServices.PDFService;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
 import com.lowagie.text.pdf.PdfPTable;
+
+import es.codeurjc.SeibiExperiencieServices.model.Orderz;
 
 
 
@@ -24,19 +25,23 @@ public class SocketThread implements Runnable {
 			InputStream is = socket.getInputStream();
 			OutputStream os = socket.getOutputStream();
 // Envío y recepción de información
-			BufferedReader leerServidor =
-					new BufferedReader(new InputStreamReader(is));
+			ObjectInputStream ois= new ObjectInputStream(is);
 			
-			table.addCell(leerServidor.readLine());
+			Orderz pedido= (Orderz) ois.readObject();
+			table.addCell(pedido.getUser().toString());
 			table.addCell("Ole");
 			table.addCell("Ole");
 			table.addCell("Ole");
-			
+			System.out.println("Pedido generado con éxito");
+			ois.close();
 			is.close();
 			os.close();
 			socket.close();
 		} catch (IOException e) {
 			System.out.println("Fallo en la conexión.");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

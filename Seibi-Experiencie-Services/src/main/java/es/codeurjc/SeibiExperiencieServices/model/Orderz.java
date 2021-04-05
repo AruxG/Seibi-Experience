@@ -1,15 +1,15 @@
-package es.codeurjc.SeibiExperiencieSpring.model;
+package es.codeurjc.SeibiExperiencieServices.model;
 
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 
-@Entity
-public class Orderz implements java.io.Serializable{
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//@Entity
+public class Orderz {
+	//@Id
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	//Pago con tarjeta
@@ -19,10 +19,10 @@ public class Orderz implements java.io.Serializable{
 	private boolean complete;
 	private Date date;
 	private int total;
-	@ManyToOne
+	//@ManyToOne
 	private User user;
 	
-	@ManyToMany
+	//@ManyToMany
 	private List<Product> products;
 	
 	

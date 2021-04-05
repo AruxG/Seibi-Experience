@@ -1,29 +1,29 @@
-package es.codeurjc.SeibiExperiencieSpring.model;
+package es.codeurjc.SeibiExperiencieServices.model;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class User implements java.io.Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//@Entity
+public class User {
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
 	private String name;
 	private String encodedPassword;
 	
-	@ElementCollection(fetch = FetchType.EAGER)
-	private List<String> roles= new ArrayList<String>();
+	/*@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles= new ArrayList<String>();*/
 	
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval=true)
+	//@OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Orderz> orders = new ArrayList<Orderz>();
 	
-	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Comment>comments = new ArrayList<Comment>();
+	//@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
+	//private List<Comment>comments = new ArrayList<Comment>();
 	
-	@ManyToMany
+	//@ManyToMany
 	private List<Product>products = new ArrayList<Product>();
 	
 	public User() {
@@ -32,7 +32,7 @@ public class User implements java.io.Serializable {
 	public User(String name, String encodedPassword, String... roles) {
 		this.name = name;
 		this.encodedPassword = encodedPassword;
-		this.roles = List.of(roles);
+		//this.roles = List.of(roles);
 	}
 
 	
@@ -50,12 +50,12 @@ public class User implements java.io.Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public List<String> getRoles() {
+	/*public List<String> getRoles() {
 		return this.roles;
 	}
 	public void setRoles(List<String> roles) {
 		this.roles=roles;
-	}
+	}*/
 	public String getName() {
 		return name;
 	}
@@ -88,13 +88,13 @@ public class User implements java.io.Serializable {
 		this.orders = orders;
 	}
 	
-	public List<Comment> getComments() {
+	/*public List<Comment> getComments() {
 		return comments;
 	}
 	
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-	}
+	}*/
 	
 	public void addProduct(Product p) {
 		products.add(p);
