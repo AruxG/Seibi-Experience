@@ -1,6 +1,7 @@
 package es.codeurjc.SeibiExperiencieServices.PDFService;
 
 import java.awt.Color;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -11,14 +12,21 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 
 import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 
 public class PDFExporter {
+	
+	@Autowired
+	MailService mail;
+	
 	public String pedido;
 
+	
 	// public Orderz orderz;
 	public PDFExporter(String pedido) {
 		this.pedido = pedido;
@@ -98,6 +106,10 @@ public class PDFExporter {
 		document.add(table);
 
 		document.close();
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		PdfWriter.getInstance(document, byteArrayOutputStream);
+		byte[] pdfBytes = byteArrayOutputStream.toByteArray();
+		mail.sendEmail("rociiocs.00@gmail.com", "Pedido", "Aquí tienes el PDF de tu pedido",document);
 
 	}
 }

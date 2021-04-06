@@ -33,19 +33,20 @@ import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 @Controller
 public class PdfController {
 
+	@Autowired
+	MailService mail;
+	
 	@GetMapping("/")
 	public String index(PdfPTable table, HttpServletResponse response) throws IOException, ClassNotFoundException {
 		
-		EmailServiceImpl nuevoMensaje= new EmailServiceImpl();
-		nuevoMensaje.sendMessageWithAttachment("antoniorobledinosanton@gmail.com", "SeibiServices", "Una prueba", "application/pdf");
-
-		
+		mail.sendEmail("rociiocs.00@gmail.com", "Pedido", "Aquí tienes el PDF de tu pedido");
+		/*
 		int port = 6661;
 		ServerSocket serverSocket = new ServerSocket(port);
 		while (true) {
 			Socket socket = serverSocket.accept();
 			/*Thread t = new Thread(new SocketThread(socket, table));
-			t.start();*/
+			t.start();
 			
 			InputStream is = socket.getInputStream();
 			OutputStream os = socket.getOutputStream();
@@ -66,8 +67,8 @@ public class PdfController {
 			exportToPDF(response);
 		
 		}
-
-		//return "index";
+	*/
+		return "index";
 	}
 
 	@RequestMapping(value = "/generate/pdf.htm", method = RequestMethod.GET)
@@ -89,7 +90,7 @@ public class PdfController {
 		String currentDateTime = dateFormatter.format(new Date());
 
 		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+		String headerValue = "attachment; filename=pedido.pdf";
 		response.setHeader(headerKey, headerValue);
 
 		// List<User> listUsers = service.listAll();
