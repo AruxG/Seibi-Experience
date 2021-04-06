@@ -28,14 +28,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfPTable;
 
-import es.codeurjc.SeibiExperiencieServices.model.Orderz;
+import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 
 @Controller
 public class PdfController {
 
 	@GetMapping("/")
 	public String index(PdfPTable table, HttpServletResponse response) throws IOException, ClassNotFoundException {
-		int port = 7777;
+		
+		EmailServiceImpl nuevoMensaje= new EmailServiceImpl();
+		nuevoMensaje.sendMessageWithAttachment("antoniorobledinosanton@gmail.com", "SeibiServices", "Una prueba", "application/pdf");
+
+		
+		int port = 6661;
 		ServerSocket serverSocket = new ServerSocket(port);
 		while (true) {
 			Socket socket = serverSocket.accept();
@@ -47,17 +52,17 @@ public class PdfController {
 // Envío y recepción de información
 			ObjectInputStream ois= new ObjectInputStream(is);
 			System.out.println("Pedido generado con éxito");
-			Orderz pedido= (Orderz) ois.readObject();
-			table.addCell(pedido.getUser().toString());
-			table.addCell("Ole");
-			table.addCell("Ole");
-			table.addCell("Ole");
+			//Orderz pedido= (Orderz) ois.readObject();
+			//table.addCell(pedido.getUser().toString());
+
 
 			ois.close();
 			is.close();
 			os.close();
 			socket.close();
+			serverSocket.close();
 			
+						
 			exportToPDF(response);
 		
 		}
@@ -77,7 +82,7 @@ public class PdfController {
 		return modelAndView;
 	}
 
-	@GetMapping("/export/pdf")
+	//@GetMapping("/export/pdf")
 	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");

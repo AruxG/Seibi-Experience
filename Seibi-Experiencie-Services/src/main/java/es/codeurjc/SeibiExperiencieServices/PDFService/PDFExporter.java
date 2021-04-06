@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 
-import es.codeurjc.SeibiExperiencieServices.model.Orderz;
+import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 
 public class PDFExporter {
 	public String pedido;
@@ -51,13 +51,17 @@ public class PDFExporter {
 	}
 
 	private void writeTableData(PdfPTable table) throws IOException {
-			int port = 7777;
+			/*int port = 7777;
 			ServerSocket serverSocket = new ServerSocket(port);
 			while (true) {
 				Socket socket = serverSocket.accept();
 				Thread t = new Thread(new SocketThread(socket, table));
 				t.start();
-			}
+			}*/
+		table.addCell("Ole");
+		table.addCell("Ole");
+		table.addCell("Ole");
+		table.addCell("Ole");
 		/*
 		 * table.addCell(user.getFullName()); table.addCell(user.getRoles().toString());
 		 * table.addCell(String.valueOf(user.isEnabled()));

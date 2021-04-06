@@ -8,7 +8,7 @@ import java.net.Socket;
 
 import com.lowagie.text.pdf.PdfPTable;
 
-import es.codeurjc.SeibiExperiencieServices.model.Orderz;
+import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 
 
 

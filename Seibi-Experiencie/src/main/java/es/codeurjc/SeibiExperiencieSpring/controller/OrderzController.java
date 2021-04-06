@@ -98,7 +98,7 @@ public class OrderzController {
 		
 		Orderz orderz = orders.findById(id).orElseThrow();
 		String host = "127.0.0.1";
-		int port = 7777;
+		int port = 6661;
 		Socket socket = new Socket(host, port);
 		OutputStream out = socket.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(out);

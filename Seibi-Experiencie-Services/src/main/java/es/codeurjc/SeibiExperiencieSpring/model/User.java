@@ -1,4 +1,4 @@
-package es.codeurjc.SeibiExperiencieServices.model;
+package es.codeurjc.SeibiExperiencieSpring.model;
 
 //import javax.persistence.*;
 
