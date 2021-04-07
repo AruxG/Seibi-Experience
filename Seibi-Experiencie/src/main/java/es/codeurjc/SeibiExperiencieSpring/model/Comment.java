@@ -5,7 +5,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Comment implements java.io.Serializable{
+public class Comment{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

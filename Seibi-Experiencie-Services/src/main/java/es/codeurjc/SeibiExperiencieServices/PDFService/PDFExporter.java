@@ -2,24 +2,16 @@ package es.codeurjc.SeibiExperiencieServices.PDFService;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 
-import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 
 public class PDFExporter {
 	
@@ -44,7 +36,7 @@ public class PDFExporter {
 
 		Font font = FontFactory.getFont(FontFactory.HELVETICA);
 		font.setColor(Color.WHITE);
-
+		font.setSize(11);
 		cell.setPhrase(new Phrase("Producto", font));
 
 		table.addCell(cell);
@@ -60,7 +52,7 @@ public class PDFExporter {
 
 	}
 
-	private void writeTableData(PdfPTable table) throws IOException {
+	private void writeTableData(PdfPTable table,String name, String activities, String description, String price) throws IOException {
 			/*int port = 7777;
 			ServerSocket serverSocket = new ServerSocket(port);
 			while (true) {
@@ -68,17 +60,17 @@ public class PDFExporter {
 				Thread t = new Thread(new SocketThread(socket, table));
 				t.start();
 			}*/
-		table.addCell("Ole");
-		table.addCell("Ole");
-		table.addCell("Ole");
-		table.addCell("Ole");
+		table.addCell(name);
+		table.addCell(activities);
+		table.addCell(description);
+		table.addCell(price);
 		/*
 		 * table.addCell(user.getFullName()); table.addCell(user.getRoles().toString());
 		 * table.addCell(String.valueOf(user.isEnabled()));
 		 */
 	}
 
-	public void export(HttpServletResponse response) throws DocumentException, IOException {
+	public void export(List<String> pedido) throws DocumentException, IOException {
 		Document document = new Document(PageSize.A4);
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		PdfWriter.getInstance(document, byteArrayOutputStream);
@@ -93,7 +85,7 @@ public class PDFExporter {
 
 		document.add(p);
 
-		p = new Paragraph("User name", font);
+		p = new Paragraph(pedido.get(0), font);
 		p.setAlignment(Paragraph.ALIGN_LEFT);
 
 		document.add(p);
@@ -104,22 +96,22 @@ public class PDFExporter {
 		table.setSpacingBefore(10);
 
 		writeTableHeader(table);
-		writeTableData(table);
+		for(int i=0;i<Integer.parseInt(pedido.get(2));i++) {
 
+			writeTableData(table,pedido.get(i*4+3),pedido.get(i*4+4),pedido.get(i*4+5),pedido.get(i*4+6));
+		}
 		document.add(table);
+		p = new Paragraph("Total: "+Integer.parseInt(pedido.get(Integer.parseInt(pedido.get(2))*4+3))+"€", font);
+		p.setAlignment(Paragraph.ALIGN_CENTER);
+
+		document.add(p);
 		document.close();
 		
 		
 		byte[] pdfBytes = byteArrayOutputStream.toByteArray();
-		if (pdfBytes.length > 0) {
-	    	System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-	    }else {
-	    	System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-	    }
-		//byteToFile.writeBytesToFile("./pedidoguay.pdf", pdfBytes);
 		MailService mail = new MailService();
 		
-		mail.sendEmail("rociiocs.00@gmail.com", "Pedido", "Aquí tienes el PDF de tu pedido",pdfBytes);
+		mail.sendEmail(pedido.get(1), "Pedido", "Aquí tienes el PDF de tu pedido",pdfBytes);
 
 	}
 }

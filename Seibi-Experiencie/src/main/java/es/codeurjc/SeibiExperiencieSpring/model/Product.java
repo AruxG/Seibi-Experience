@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Product implements java.io.Serializable {
+public class Product{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -22,7 +22,7 @@ public class Product implements java.io.Serializable {
 	private int price;
 	@Lob
 	@JsonIgnore
-	private transient Blob imageFile;
+	private Blob imageFile;
 
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Comment> comments = new ArrayList<Comment>();

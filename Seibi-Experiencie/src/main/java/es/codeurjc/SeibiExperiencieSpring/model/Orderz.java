@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-public class Orderz implements java.io.Serializable{
+public class Orderz{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -81,6 +81,9 @@ public class Orderz implements java.io.Serializable{
 		this.mail = mail;
 	}
 	
+	public int getTotal() {
+		return this.total;
+	}
 	public int getCardNumber() {
 		return cardNumber;
 	}

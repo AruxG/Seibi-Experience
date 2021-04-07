@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -98,11 +100,24 @@ public class OrderzController {
 		
 		Orderz orderz = orders.findById(id).orElseThrow();
 		String host = "127.0.0.1";
-		int port = 6661;
+		int port = 6666;
 		Socket socket = new Socket(host, port);
 		OutputStream out = socket.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(out);
 		InputStream in = socket.getInputStream();
+		
+		PrintWriter escribirServidor =new PrintWriter(socket.getOutputStream(),true);
+		escribirServidor.println(orderz.getUser().getName());
+		escribirServidor.println(orderz.getMail());
+		List<Product> products = orderz.getProducts();
+		escribirServidor.println(products.size());
+		for(Product p:products) {
+			escribirServidor.println(p.getName());
+			escribirServidor.println(p.getActivities());
+			escribirServidor.println(p.getDescription());
+			escribirServidor.println(p.getPrice());
+		}
+		escribirServidor.println(orderz.getTotal());
 		// Envío y recepción de información
 		oos.writeObject(orderz);
 		System.out.println("Recibo enviado al servicio");
