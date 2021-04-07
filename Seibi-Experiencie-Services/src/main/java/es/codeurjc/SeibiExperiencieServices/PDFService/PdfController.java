@@ -38,8 +38,8 @@ public class PdfController {
 	
 	@GetMapping("/")
 	public String index(PdfPTable table, HttpServletResponse response) throws IOException, ClassNotFoundException {
-		
-		mail.sendEmail("rociiocs.00@gmail.com", "Pedido", "Aquí tienes el PDF de tu pedido");
+		exportToPDF(response);
+		//mail.sendEmail("rociiocs.00@gmail.com", "Pedido", "Aquí tienes el PDF de tu pedido");
 		/*
 		int port = 6661;
 		ServerSocket serverSocket = new ServerSocket(port);
@@ -50,7 +50,7 @@ public class PdfController {
 			
 			InputStream is = socket.getInputStream();
 			OutputStream os = socket.getOutputStream();
-// Envío y recepción de información
+			// Envío y recepción de información
 			ObjectInputStream ois= new ObjectInputStream(is);
 			System.out.println("Pedido generado con éxito");
 			//Orderz pedido= (Orderz) ois.readObject();
@@ -62,10 +62,7 @@ public class PdfController {
 			os.close();
 			socket.close();
 			serverSocket.close();
-			
-						
-			exportToPDF(response);
-		
+
 		}
 	*/
 		return "index";
@@ -85,6 +82,7 @@ public class PdfController {
 
 	//@GetMapping("/export/pdf")
 	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+		/*
 		response.setContentType("application/pdf");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
@@ -94,7 +92,7 @@ public class PdfController {
 		response.setHeader(headerKey, headerValue);
 
 		// List<User> listUsers = service.listAll();
-
+		 */
 		PDFExporter exporter = new PDFExporter("Esto es una prueba");
 		exporter.export(response);
 

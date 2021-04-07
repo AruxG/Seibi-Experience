@@ -2,6 +2,7 @@ package es.codeurjc.SeibiExperiencieServices.PDFService;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
@@ -22,7 +24,7 @@ import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 public class PDFExporter {
 	
 	@Autowired
-	MailService mail;
+	ByteToFile byteToFile;
 	
 	public String pedido;
 
@@ -78,8 +80,9 @@ public class PDFExporter {
 
 	public void export(HttpServletResponse response) throws DocumentException, IOException {
 		Document document = new Document(PageSize.A4);
-		PdfWriter.getInstance(document, response.getOutputStream());
-
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		PdfWriter.getInstance(document, byteArrayOutputStream);
+		//PdfWriter.getInstance(document, response.getOutputStream());
 		document.open();
 		Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 		font.setSize(18);
@@ -104,12 +107,19 @@ public class PDFExporter {
 		writeTableData(table);
 
 		document.add(table);
-
 		document.close();
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		PdfWriter.getInstance(document, byteArrayOutputStream);
+		
+		
 		byte[] pdfBytes = byteArrayOutputStream.toByteArray();
-		mail.sendEmail("rociiocs.00@gmail.com", "Pedido", "Aquí tienes el PDF de tu pedido",document);
+		if (pdfBytes.length > 0) {
+	    	System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	    }else {
+	    	System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+	    }
+		//byteToFile.writeBytesToFile("./pedidoguay.pdf", pdfBytes);
+		MailService mail = new MailService();
+		
+		mail.sendEmail("rociiocs.00@gmail.com", "Pedido", "Aquí tienes el PDF de tu pedido",pdfBytes);
 
 	}
 }
