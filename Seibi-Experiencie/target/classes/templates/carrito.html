@@ -1,0 +1,32 @@
+<html>
+<head>
+<meta charset="UTF-8"/>
+</head>
+<body>
+{{>header_carrito}}
+	<h2>Carrito</h2>
+	{{#products}}
+	<br>
+	
+	<p>Producto: {{name}}</p>
+	<p>Precio: {{price}}€</p>
+	<form action="./carrito" method="post">
+		<input name="id_producto" type="hidden" value={{id}}>
+	<input type='submit' value='Eliminar producto'/>
+	<input type="hidden" name="_csrf" value="{{token}}" />
+	</form>
+	</br>
+	{{/products}}
+	{{#total}}
+	<p>Total: {{total}}€</p>
+	<br>
+	<a href="/orders/new">Realizar pedido</a>
+	</br>
+	{{/total}}
+	{{^products}}
+	<a>Todavía no hay productos</a>
+	{{/products}}
+	
+</body>
+	{{>foot}}
+</html>

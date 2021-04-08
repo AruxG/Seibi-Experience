@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta charset="UTF-8"/>
+<script type="text/JavaScript">
+function usuarioComprobar(user_comment,user,id){
+	var text= "eliminar_comentario" + "/" + id;
+	var elim=document.getElementById(text);
+	console.log(user);
+	console.log(user_comment);
+	if(user==user_comment){
+	console.log("coincide");
+		elim.style="display :block;";
+		
+	}else{
+		console.log("No coincide");
+		elim.style="display :none;";
+		
+	}
+	
+}
+</script>
+</head>
+<body>
+	{{>header}}
+	<h2>Producto: {{product.name}}</h2>
+	<p><b>Descripción:</b> {{product.description}}</p>
+	<p><b>Actividades:</b> {{product.activities}}</p>
+	{{#imagen}}
+	<img src="data:image/jpg;base64,{{imagen}}"/>
+	{{/imagen}}
+	{{^imagen}}
+	<p>No hay imagen</p>
+	{{/imagen}}
+	<br></br>
+	{{#Carrito}}
+	<a>Ya está en tu carrito</a>
+	<form action="./{{product.id}}" method="post">
+		<input name="id" type="hidden" value={{product.id}}>
+		<input type="hidden" name="_csrf" value="{{token}}" />
+	<p>
+	<input type='submit' value='Eliminar producto'/>
+	</p>
+	</form>
+	{{/Carrito}}
+	
+	{{^Carrito}}
+	<a href="/products/{{product.id}}/buy">Añadir al carrito</a>
+	{{/Carrito}}
+
+	
+	<h3>Comentarios</h3>
+	{{#product.comments}}
+	<p><b>Usuario:</b> {{usuario.name}}</p>
+	<p><b>Comentario:</b> {{text}}</p>
+	<div id="eliminar_comentario/{{id}}" style="display: none;">
+	<form action="/products/{{product.id}}/comments/delete_comment" method="post">
+		<input name="id_comment" type="hidden" value={{id}}>
+	<p>
+	<input type='submit' value='Eliminar comentario'/>
+	</p>
+	</form>
+	</div>
+	{{#usersession}}
+	<script>usuarioComprobar('{{usuario.name}}','{{usersession}}','{{id}}');</script>
+	{{/usersession}}
+	<br></br>
+	{{/product.comments}}
+	
+	{{^product.comments}}
+	<p>Todavía no hay comentarios</p>
+	{{/product.comments}}
+
+	<a href="/products/{{product.id}}/comments/create_comment">Añadir comentario</a>
+	<!--  
+	{{#admin}}
+	<a href="/products/{{product.id}}/delete_product">Eliminar producto</a>
+	{{/admin}}
+	-->
+	<br></br>
+</body>
+	{{>foot}}
+</html>
+
+
+

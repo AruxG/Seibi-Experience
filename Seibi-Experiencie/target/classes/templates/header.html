@@ -1,0 +1,13 @@
+	<meta charset="UTF-8"/>
+	<h1>Seibi Experience</h1>
+	
+	{{#user}}
+	<a href=/users/show_user>{{user}}</a>
+	<br>
+	<a href="/users/carrito">Ir al carrito </a>
+	{{/user}}
+	
+	{{^user}}
+	<a href=/users/login align = "right">Iniciar sesión</a>
+	{{/user}}
+	<hr></hr>

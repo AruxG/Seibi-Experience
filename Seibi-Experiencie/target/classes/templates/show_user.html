@@ -1,0 +1,31 @@
+<html>
+<head>
+	<meta charset="UTF-8"/>
+</head>
+<body>
+{{>header_user}}
+	<h2>Información de usuario</h2>
+	<p>Nombre: {{username}}</p>
+	<br>
+	{{#orders}}
+		<br>
+		<h3>Pedido número {{id}}</h3>
+		<p><b>Realizado:</b> {{date}}</p>
+		{{#products}}
+			<p><b>Producto:</b> {{name}}   <b>Precio:</b> {{price}}€</p>
+		{{/products}}
+		<p><b>Total:</b> {{total}}€</p>
+		</br>
+	{{/orders}}
+	
+	{{^orders}}
+	<p><i>Todavía no se han realizado pedidos.</i></p>
+	{{/orders}}
+	</br>
+	<form action="/users/logout" method="post">
+		<input type="hidden" name="_csrf" value="{{token}}"/>
+		<input type="submit" value="Sign Out" />
+	</form>
+</body>
+{{>foot}}
+</html>

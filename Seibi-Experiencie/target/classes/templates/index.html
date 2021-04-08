@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<script type="text/JavaScript">
+function Seleccionar(ciudad,hora){
+	var elements = document.getElementById("city").options;
+    for(var i = 0; i < elements.length; i++){
+    	var val = elements[i].value;
+    	if(val == ciudad){
+    	elements[i].selected = true;
+    	}else{
+    	elements[i].selected = false;
+    	}
+      
+    }
+    var elements = document.getElementById("time").options;
+    for(var i = 0; i < elements.length; i++){
+    	var val = elements[i].value;
+    	if(val == hora){
+    	elements[i].selected = true;
+    	}else{
+    	elements[i].selected = false;
+    	}
+      
+    }
+}
+</script>
+</head>
+<body onload="javascript:Seleccionar('{{ciudad}}','{{hora}}')">
+	{{>header}}
+	{{#welcome}}
+	<h2>¡Bienvenid@!</h2>
+	{{/welcome}}
+	
+	
+	
+	<h2>Productos</h2>
+	<form action="/" method="post">
+	<label>Escoge una ciudad:</label>
+		<select name="city" id="city"> 
+			<option value="Any">Cualquiera</option>
+			<option value="Madrid">Madrid </option> 
+			<option value="Barcelona">Barcelona</option> 
+			<option value="Toledo">Toledo</option> 
+			<option value="Sevilla">Sevilla</option> 
+			<option value="Pontevedra">Pontevedra</option> 
+		</select>
+	<label> Escoge un horario:</label>
+		<select name="time" id="time"> 
+			<option value="Any">Cualquiera</option>
+			<option value="Mañana">Mañana</option> 
+			<option value="Tarde">Tarde</option> 
+			<option value="Noche">Noche</option> 
+		</select>
+	<input type="Submit" value="Filtrar">
+	<input type="hidden" name="_csrf" value="{{token}}" />
+	</form>
+	<br>
+	{{#products}}
+	<br>
+	<a href="products/{{id}}">{{name}}</a>
+	<a>{{description}}</a>
+	<!--{{^imageFile}}
+	<form action="/subirFoto" method="post" enctype="multipart/form-data">
+		<input name="id_producto" type="hidden" value={{id}}>
+		<p>Sube una foto:</p><input type='file' name='image' accept=".jpg, .jpeg, .png">
+		<input type="Submit" value="Subir">
+	</form>
+	{{/imageFile}}
+	!-->
+	</br>
+	{{/products}}
+	
+	<br>
+	
+	{{#hasPrev}}
+	<a href="/?page={{prevPage}}">Prev</a>	
+	{{/hasPrev}}
+	
+	{{#hasNext}}
+	<a href="/?page={{nextPage}}">Next</a>
+	{{/hasNext}}
+	
+	<br>
+	
+	{{^products}}
+	<p>No hay posts todavía.</p>
+	{{/products}}
+	
+	{{#admin}}
+	<a href="/admin">Añadir producto</a>
+	{{/admin}}
+</body>
