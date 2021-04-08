@@ -1,5 +1,6 @@
 package es.codeurjc.SeibiExperiencieServices.PDFService;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,20 +42,28 @@ public class PdfController {
 	@Autowired
 	MailService mail;
 	
-	@GetMapping("/")
-	public String index(PdfPTable table, HttpServletResponse response) throws IOException, ClassNotFoundException {
-		
-		int port = 6666;
-		ServerSocket serverSocket = new ServerSocket(port);
-		while (true) {
-			Socket socket = serverSocket.accept();
-
-			Thread t = new Thread(new SocketThread(socket));
-			t.start();
-		}
-	
-		//return "index";
+	@PostConstruct
+	public void index() throws IOException{
+		Thread t = new Thread(() -> {
+			int port = 6666;
+			ServerSocket serverSocket;
+			try {
+				serverSocket = new ServerSocket(port);
+				Socket socket;
+				while (true) {
+					socket = serverSocket.accept();
+					Thread te = new Thread(new SocketThread(socket));
+					te.start();
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+				
+		});
+		t.start();
 	}
+	
 
 	@RequestMapping(value = "/generate/pdf.htm", method = RequestMethod.GET)
 	ModelAndView generatePdf(HttpServletRequest request, HttpServletResponse response) throws Exception {

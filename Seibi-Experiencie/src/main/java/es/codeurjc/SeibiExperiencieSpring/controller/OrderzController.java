@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import es.codeurjc.SeibiExperiencieSpring.model.Orderz;
 import es.codeurjc.SeibiExperiencieSpring.model.Product;
@@ -66,10 +67,16 @@ public class OrderzController {
 		model.addAttribute("username", user.getName());
 		model.addAttribute("user", user.getName());
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
-		if ((!mail.equals("") && (mail.endsWith("@gmail.com") || mail.endsWith("@gmail.es")
-				|| mail.endsWith("@hotmail.com") || mail.endsWith("@hotmail.es")))
-				&& (num_tarjeta >= 10000000 && num_tarjeta <= 99999999) && (CVV >= 100 && CVV <= 999)) {
-			int total = user.sumTotal();
+		List<String> datos = new ArrayList<String>();
+		datos.add(mail);
+		datos.add(""+num_tarjeta);
+		datos.add(""+CVV);
+		RestTemplate restTemplate = new RestTemplate();
+		String url="http://localhost:8080/payment";
+		boolean datosCorrectos = restTemplate.postForObject(url, datos, boolean.class);
+		System.out.println(datosCorrectos);
+		int total = user.sumTotal();
+		if (datosCorrectos) {
 			Orderz newOrder = new Orderz(user, user.getProducts(), true, new java.util.Date(), mail, num_tarjeta, CVV,
 					total);
 
@@ -81,6 +88,7 @@ public class OrderzController {
 			users.save(user);
 			return "order_completed";
 		} else {
+			model.addAttribute("total", user.sumTotal());
 			model.addAttribute("products", user.getProducts());
 			model.addAttribute("error", true);
 			return "payment_gateway";
@@ -119,7 +127,6 @@ public class OrderzController {
 		}
 		escribirServidor.println(orderz.getTotal());
 		// Envío y recepción de información
-		oos.writeObject(orderz);
 		System.out.println("Recibo enviado al servicio");
 		oos.close();
 		out.close();
