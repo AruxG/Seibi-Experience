@@ -85,6 +85,9 @@ public class Orderz {
 		return cardNumber;
 	}
 	
+	public int getTotal() {
+		return this.total;
+	}
 	public void setCardNumber(int cardNumber) {
 		this.cardNumber = cardNumber;
 	}

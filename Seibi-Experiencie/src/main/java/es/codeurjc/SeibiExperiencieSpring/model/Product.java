@@ -17,6 +17,7 @@ public class Product{
 	private String activities;
 	private String city;
 	private String time;
+	@JsonIgnore
 	private String image;
 	private String description;
 	private int price;
@@ -24,6 +25,7 @@ public class Product{
 	@JsonIgnore
 	private Blob imageFile;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Comment> comments = new ArrayList<Comment>();
 	

@@ -2,6 +2,8 @@ package es.codeurjc.SeibiExperiencieSpring.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +19,15 @@ public class User{
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles= new ArrayList<String>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Orderz> orders = new ArrayList<Orderz>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Comment>comments = new ArrayList<Comment>();
 	
+	@JsonIgnore
 	@ManyToMany
 	private List<Product>products = new ArrayList<Product>();
 	
