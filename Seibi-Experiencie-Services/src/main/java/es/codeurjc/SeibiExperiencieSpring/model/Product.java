@@ -2,10 +2,7 @@ package es.codeurjc.SeibiExperiencieSpring.model;
 
 //import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.List;
 
 //@Entity
 public class Product {

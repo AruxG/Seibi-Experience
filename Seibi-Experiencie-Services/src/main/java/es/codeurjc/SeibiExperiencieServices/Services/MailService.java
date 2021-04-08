@@ -1,9 +1,6 @@
 package es.codeurjc.SeibiExperiencieServices.Services;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import com.lowagie.text.Document;
 
 import java.util.*;
 import javax.mail.*;

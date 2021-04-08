@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import java.util.List;
-
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 

@@ -1,4 +1,4 @@
-package es.codeurjc.demo2;
+package es.codeurjc.SeibiExperiencieServices;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
