@@ -24,14 +24,29 @@ _Trello:_ https://trello.com/b/20wlKqxT/seibi-experience
 ## Pantallas de la aplicación
 
 ### Pantalla Principal
-En esta pantalla se da la bienvenida a la página (si es la primera vez que la visitamos) y se muestra el listado de productos (packs de experiencias) para ver los mismos en detalle, así como introducir filtros mediante los que realizar búsquedas más concretas. Por otro lado, como la mayoría de pantallas, dispone de un header que muestra el nombre de la aplicación, así como la opción de iniciar sesión (o en caso de que ya tengamos sesión iniciada, consultar nuestro carrito y datos personales). Es destacable que todo ello está paginado, de forma que se puede navegar por diferentes páginas para ver la totalidad de los productos en vez de mostrar los mismos apilados en una larga lista.
+En esta pantalla se da la bienvenida a la página (si es la primera vez que la visitamos) y se muestra el listado de productos (packs de experiencias) para ver los mismos en detalle, así como introducir filtros mediante los que realizar búsquedas más concretas. Por otro lado, como la mayoría de pantallas, dispone de un header que muestra el nombre de la aplicación, así como la opción de iniciar sesión (o en caso de que ya tengamos sesión iniciada, consultar nuestro carrito y datos personales). Es destacable que todo ello está paginado, de forma que se puede navegar por diferentes páginas para ver la totalidad de los productos en vez de mostrar los mismos apilados en una larga lista. Con el apartado de seguridad realizado, y disponiendo de un rol de administrador, si se inicia sesión como éste, se puede ver también un enlace para añadir nuevos productos. 
 
 ![pantalla1](https://user-images.githubusercontent.com/48557378/110473706-1f87fc00-80df-11eb-847d-cef141c39210.png)
 
-### Información de Producto
-Esta pantalla ofrece al usuario información en detalle del producto, como es su descripción o nombre, así como la posibilidad de realziar comentarios sobre el mismo y añadirlo a nuestro carrito de compra. Estas dos últimas acciones requieren de tener una sesión iniciada, por supuesto. Es destacable que un comentario sólo puedde ser eliminado por el usuario que lo creó, como también es relevante indicar que, si un usuario ya posee del producto en su carrito de compra, se le informará de ello y se le dará opción a eliminarlo del mismo.
+### Añadir Producto
+Habiendo iniciado sesión como administradores se tiene la opción de, desde la pantalla principal, alcanzar esta pantalla en que crear y añadir a la aplicación nuevos productos, rellenando de forma adecuada sus campos (de forma que si están vacíos se nos indica apropiadamente) para poder añadir un producto a los ya presentes.
 
-![pantalla2](https://user-images.githubusercontent.com/48557378/110473745-2adb2780-80df-11eb-908b-06e147933915.png)
+![admin1](https://user-images.githubusercontent.com/48557378/114228974-81a27e00-9977-11eb-977d-49edad7f17cd.png)
+
+### Confirmación Producto Añadido
+Si se cumplimenta de forma correcta los campos propuestos en la anterior pantalla, se pasa a una nueva que confirma que, efectivamente, el producto ha podido añadirse con éxito a la aplicación.
+
+![admin2](https://user-images.githubusercontent.com/48557378/114230005-e0b4c280-9978-11eb-8632-17248562df86.png)
+
+### Información de Producto
+Esta pantalla ofrece al usuario información en detalle del producto, como es su descripción o nombre, así como la posibilidad de realziar comentarios sobre el mismo y añadirlo a nuestro carrito de compra. Estas dos últimas acciones requieren de tener una sesión iniciada, por supuesto. Es destacable que un comentario sólo puede ser eliminado por el usuario que lo creó, como también es relevante indicar que, si un usuario ya posee del producto en su carrito de compra, se le informará de ello y se le dará opción a eliminarlo del mismo. Por otro lado, con la implementación de seguridad y los roles pertinentes, si se inicia sesión como administrador, en esta pantalla se puede subir una imagen que  represente al producto.
+
+![admin3](https://user-images.githubusercontent.com/48557378/114230320-4f921b80-9979-11eb-9bba-d975f783dde1.png)
+
+### Confirmación Foto Subida
+Si en la pantalla anterior se trata de añadir una foto al producto estando logeado como administrador, esta será la pantalla de confirmación que indicará que dicha acción ha sido realizada con éxito.
+
+![admin4](https://user-images.githubusercontent.com/48557378/114230780-dba44300-9979-11eb-9f5f-1561a476f724.png)
 
 ### Confirmación Comentario Eliminado
 Se le confirma al usuario de la correcta eliminación del comentario seleccionado.
@@ -99,9 +114,9 @@ Finalmente, esta pestaña confirma, como su nombre indica, el correcto registro 
 ![pantalla13](https://user-images.githubusercontent.com/48557378/110305595-263e4280-7ffd-11eb-876b-794db4c92cd8.png)
 
 ## Diagrama de navegación
-Dado que desde la totalidad de las pantallas (salvo desde sí mismas) se puede acceder a las pantallas de *Página Principal, perfil de usuario/iniciar sesión* y *carrito de compra*, y para simplificar la representación del diagrama de navegación, todas las entradas a estas pantallas se representará con un "*".
+Dado que desde la totalidad de las pantallas (salvo desde sí mismas) se puede acceder a las pantallas de *Página Principal, perfil de usuario/iniciar sesión* y *carrito de compra*, y para simplificar la representación del diagrama de navegación, todas las entradas a estas pantallas se representará con un "\*". También es destacable que, con la implementación de la seguridad, si un usuario intenta acceder a cualquier pantalla privada (que requiere iniciar sesión) y no está logeado, será llevado automáticamente a la pantalla de inicio de sesión.
 
-![SeibiNav](https://user-images.githubusercontent.com/48557378/110473872-4e9e6d80-80df-11eb-9296-1c7db7d2cb16.png)
+![diagramaNavegación (1)](https://user-images.githubusercontent.com/48557378/114230966-16a67680-997a-11eb-9118-3ff9307369e3.png)
 
 ## Diagrama de clases
 Habiendo un total de cuatro entidades, *usuario, comentario, producto* y *pedido*, el diagrama de entidad relación (con representación de patas de gallo), es el siguiente:
@@ -112,3 +127,26 @@ Por otro lado, se presenta el diagrama de clases UML, que establece los tipos de
 
 ![SeibiUML](https://user-images.githubusercontent.com/48557378/110474511-0c296080-80e0-11eb-80b3-31eeb3808352.png)
 
+## Instrucciones para el despliegue de la aplicación
+De cara a poder realizar el despliegue de la aplicación, debemos compilar la misma y generar el jar pertinente, así como adecuar la máquina virtual para poder correr en la misma la aplicación.
+
+El primer paso, la compilación, se realiza fácilmente a través de SpringTool, ya que permite generar el jar a partir del propio proyecto usando la build de Maven(Click Derecho en el root del proyecto→Run as...→Maven build...→), y fijando en este como "Goals" *clean package*. Hecho esto, aplicamos cambios y pulsamos *Run*. Con ello, ya disponemos de nuestra aplicación compilada y el jar generado. Es importante tener que en cuenta que, para que estos cambios se reflejen en el proyecto en GitHub, debemos editar el .gitignore para no excluir la carpeta *target* (en que se nos ha generado el jar).
+
+En cuanto a la configuración de la máquina virtual (habiendo instalado la misma, en nuestro caso, a través de Virtual Box con una imagen del sistema operativo), debemos instalar mySQL Workbench y Java8 para poder correr la aplicación.
+
+Para el primero, los pasos son los siguientes, en caso de instalarlo mediante *apt*:
+* Descargar el archivo de configuración del repositorio apt (https://dev.mysql.com/downloads/repo/apt/)
+* Realizar la instalación de dicho archivo, a través del comando en consola *sudo apt install ./mysql-apt-config_0.8.15-1_all.deb* (encontrándonos en la ruta de descarga)
+* Actualizar la caché apt (*sudo apt update*)
+* Instalar, ahora sí, mySQL Workbench (*sudo apt install mysql-workbench-community*)
+
+Con ello ya disponemos de mySQL Workbench, pero si queremos evitar problemas para cargar nuestra BD, debemos llevar a cabo la siguiente configuración:
+* Habiendo entrado en la aplicación (ejecutando la instrucción *mysql-workbench*), debemos limpiar los privilegios (*FLUSH PRIVILEGES;*)
+* Ello nos da capacidad para modificar la contraseña de conexión a la BD (*ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';*)
+* Podemos ver el estado actual mediante *SELECT user,authentication_string,plugin,host FROM mysql.user;*
+
+Ya disponemos de mySQL instalado, por lo que sólo resta instalar Java8:
+* Para evitar problemas de dependencias primero ejecutamos *sudo apt install default-jre*
+* Tras ello podemos instalar directamente con *sudo apt install openjdk-8-jdk*
+
+Así, ya disponemos de ambas herramientas instaladas y podemos correr nuestra aplicación en la máquina virtual. Ello requiere de descargar los jar en la misma (tanto de la aplicación principal como de la aplicación de servicios) del repositorio en que se hayan, y ejecutar cada uno mediante *java -jar nombre-versión.jar*.
