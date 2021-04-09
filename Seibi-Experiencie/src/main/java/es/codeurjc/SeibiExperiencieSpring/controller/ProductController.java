@@ -95,7 +95,7 @@ public class ProductController {
 			products.save(new Product("BarcelonaByMorning", activities,"Barcelona","Mañana",imagen,"Ideal para conocer Barcelona",40));
 			
 			activities = "Almuerzo en una terraza con vistas a la ciudad, visitar Parque Güell, merienda";
-			imagen = getMultipartFile("static/images/barcelonabyevening.png");
+			//imagen = getMultipartFile("static/images/barcelonabyevening.png");
 			products.save(new Product("BarcelonaByEvening", activities,"Barcelona","Tarde",imagen,"Vas a adorar Barcelona",30));
 			
 			activities = "Cena en un yate con vistas al mar y música en directo de la mano de Sailing Experience";
