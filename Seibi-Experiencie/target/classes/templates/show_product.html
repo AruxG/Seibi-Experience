@@ -30,6 +30,14 @@ function usuarioComprobar(user_comment,user,id){
 	{{/imagen}}
 	{{^imagen}}
 	<p>No hay imagen</p>
+	{{#admin}}
+	<form action="/subirFoto" method="post" enctype="multipart/form-data">
+		<input name="id_producto" type="hidden" value={{product.id}}>
+		<p>Sube una foto:</p><input type='file' name='image' accept=".jpg, .jpeg, .png" required>
+		<input type="hidden" name="_csrf" value="{{token}}"/>
+		<input type="Submit" value="Subir">
+	</form>
+	{{/admin}}
 	{{/imagen}}
 	<br></br>
 	{{#Carrito}}
@@ -55,6 +63,7 @@ function usuarioComprobar(user_comment,user,id){
 	<div id="eliminar_comentario/{{id}}" style="display: none;">
 	<form action="/products/{{product.id}}/comments/delete_comment" method="post">
 		<input name="id_comment" type="hidden" value={{id}}>
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 	<p>
 	<input type='submit' value='Eliminar comentario'/>
 	</p>

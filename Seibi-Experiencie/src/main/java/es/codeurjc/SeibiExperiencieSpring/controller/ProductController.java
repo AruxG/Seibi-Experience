@@ -370,10 +370,16 @@ public class ProductController {
 	}
 	*/
 	@PostMapping("/subirFoto")
-	public String subirFoto(Model model, @RequestParam MultipartFile image, @RequestParam Long id_producto) {
+	public String subirFoto(Model model, @RequestParam MultipartFile image, @RequestParam Long id_producto,HttpServletRequest request) {
+		String name = request.getUserPrincipal().getName();
+		
+		User user = users.findByName(name).orElseThrow();
+
+		model.addAttribute("usernombre", user.getName());		
+		model.addAttribute("user", user.getName());		
+		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		Product product = products.findById(id_producto).orElseThrow();
 		byte[] bytes;
-
         if (image != null) {
             try {
                 // Por si se quiere guardar tambien el nombre y el tamaño de la imagen
@@ -395,7 +401,11 @@ public class ProductController {
             catch (Exception exc){
                 return "Fallo al establecer la imagen de perfil";
             }
+            return "subirFoto";
+        }else {
+        	model.addAttribute("product", product);
+        	return "show_product";
         }
-        return "subirFoto";
+       
 	}
 }

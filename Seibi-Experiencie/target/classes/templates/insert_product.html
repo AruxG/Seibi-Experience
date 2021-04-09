@@ -11,7 +11,7 @@
 		<h2>Debes rellenar todos los campos (Imagen opcional)</h2>
 		{{/errorcampos}}
 		<label>Nombre del producto</label>
-		<input type='text' name='name'/>
+		<input type='text' name='name' required/>
 		<p>
 		<label>Escoge una ciudad:</label>
 		<select name="city" id="city"> 
@@ -29,11 +29,11 @@
 		</select>
 		</p>
 		<p>Actividades:</p>
-		<textarea name='activities' rows=3 cols=40></textarea>
+		<textarea name='activities' rows=3 cols=40 required></textarea>
 		<p>Descripción:</p>
-		<textarea name='description' rows=3 cols=40></textarea>
+		<textarea name='description' rows=3 cols=40 required></textarea>
 		<p>Precio:</p>
-		<input type='number' name='price' value='0'/>
+		<input type='number' name='price' required/>
 		<p>Sube una foto:</p>
 		<input type='file' name='image' accept=".jpg, .jpeg, .png">
 		<p>

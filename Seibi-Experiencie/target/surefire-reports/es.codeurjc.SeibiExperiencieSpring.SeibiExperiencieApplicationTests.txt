@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: es.codeurjc.SeibiExperiencieSpring.SeibiExperiencieApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.164 s - in es.codeurjc.SeibiExperiencieSpring.SeibiExperiencieApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.973 s - in es.codeurjc.SeibiExperiencieSpring.SeibiExperiencieApplicationTests
