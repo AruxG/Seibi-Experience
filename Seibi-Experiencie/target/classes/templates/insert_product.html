@@ -6,6 +6,10 @@
 {{>header}}
 	<form action="/admin/addProduct" method="post" enctype="multipart/form-data">
 		<h1>Añadir producto</h1>
+		
+		{{#errorcampos}}
+		<h2>Debes rellenar todos los campos (Imagen opcional)</h2>
+		{{/errorcampos}}
 		<label>Nombre del producto</label>
 		<input type='text' name='name'/>
 		<p>
@@ -29,7 +33,7 @@
 		<p>Descripción:</p>
 		<textarea name='description' rows=3 cols=40></textarea>
 		<p>Precio:</p>
-		<input type='int' name='price'/>
+		<input type='number' name='price' value='0'/>
 		<p>Sube una foto:</p>
 		<input type='file' name='image' accept=".jpg, .jpeg, .png">
 		<p>

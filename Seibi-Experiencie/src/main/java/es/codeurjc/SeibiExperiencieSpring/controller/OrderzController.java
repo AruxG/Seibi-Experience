@@ -49,7 +49,7 @@ public class OrderzController {
 
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());
+		model.addAttribute("usernombre", user.getName());
 		model.addAttribute("user", user.getName());
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		model.addAttribute("products", user.getProducts());
@@ -64,7 +64,7 @@ public class OrderzController {
 
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());
+		model.addAttribute("usernombre", user.getName());
 		model.addAttribute("user", user.getName());
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		List<String> datos = new ArrayList<String>();
@@ -102,7 +102,7 @@ public class OrderzController {
 
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());
+		model.addAttribute("usernombre", user.getName());
 		model.addAttribute("user", user.getName());
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		

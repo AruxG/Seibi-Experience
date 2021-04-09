@@ -40,7 +40,7 @@ public class UserController {
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());		
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		if( user!=null){
@@ -85,7 +85,7 @@ public class UserController {
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());		
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		return "user_loged";
@@ -125,7 +125,7 @@ public class UserController {
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());		
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		model.addAttribute("products",user.getProducts());
@@ -141,7 +141,7 @@ public class UserController {
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());		
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		Product p = products.findById(id_producto).orElseThrow();

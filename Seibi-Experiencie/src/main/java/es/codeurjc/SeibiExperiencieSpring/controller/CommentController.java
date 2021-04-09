@@ -42,7 +42,7 @@ public class CommentController{
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());	
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		return "create_comment";
@@ -53,7 +53,7 @@ public class CommentController{
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());	
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		Comment new_comment= new Comment(user, text, products.findById(id).orElseThrow());
@@ -68,7 +68,7 @@ public class CommentController{
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());	
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		Comment delete = comments.findById(id_comment);

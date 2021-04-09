@@ -61,14 +61,15 @@ function Seleccionar(ciudad,hora){
 	<br>
 	<a href="products/{{id}}">{{name}}</a>
 	<a>{{description}}</a>
-	<!--{{^imageFile}}
+	{{#admin}}
+	{{^imageFile}}
 	<form action="/subirFoto" method="post" enctype="multipart/form-data">
 		<input name="id_producto" type="hidden" value={{id}}>
 		<p>Sube una foto:</p><input type='file' name='image' accept=".jpg, .jpeg, .png">
 		<input type="Submit" value="Subir">
 	</form>
 	{{/imageFile}}
-	!-->
+	{{^admin}}
 	</br>
 	{{/products}}
 	

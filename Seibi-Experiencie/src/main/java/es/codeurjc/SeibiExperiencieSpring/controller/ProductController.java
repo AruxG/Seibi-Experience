@@ -73,22 +73,25 @@ public class ProductController {
 	@PostConstruct
 	public void init() throws IOException {
 		if(products.findAll().size()==0) {
+			
 			//Madrid experiences
 			String activities = "Desayuno, Museo del prado, Aperitivo";
-			Blob imagen = getMultipartFile("static/images/madridbymorning.png");
+			//Blob imagen = getMultipartFile("static/images/madridbymorning.png");
+			Blob imagen = null;
 			products.save(new Product("MadridByMorning", activities,"Madrid","Mañana",imagen,"Ideal para conocer Madrid",50));
 			
 			activities = "Almuerzo en terraza con vistas a la ciudad, Escape Room Lever, Merienda";
-			imagen = getMultipartFile("static/images/madridbyevening.png");
+			//imagen = getMultipartFile("static/images/madridbyevening.png");
 			products.save(new Product("MadridByEvening", activities,"Madrid","Tarde",imagen,"Vas a adorar Madrid",70));
 			
+			
 			activities = "Rocódromo, Cena, ver El rey León";
-			imagen = getMultipartFile("static/images/madridbynight.png");
+			//imagen = getMultipartFile("static/images/madridbynight.png");
 			products.save(new Product("MadridByNight", activities,"Madrid","Noche",imagen,"Una noche de fantasía en Madrid",50));
 			
 			//Barcelona experiences
 			activities = "Desayuno, visitar Sagrada Familia";
-			imagen = getMultipartFile("static/images/barcelonabymorning.png");
+			//imagen = getMultipartFile("static/images/barcelonabymorning.png");
 			products.save(new Product("BarcelonaByMorning", activities,"Barcelona","Mañana",imagen,"Ideal para conocer Barcelona",40));
 			
 			activities = "Almuerzo en una terraza con vistas a la ciudad, visitar Parque Güell, merienda";
@@ -96,47 +99,48 @@ public class ProductController {
 			products.save(new Product("BarcelonaByEvening", activities,"Barcelona","Tarde",imagen,"Vas a adorar Barcelona",30));
 			
 			activities = "Cena en un yate con vistas al mar y música en directo de la mano de Sailing Experience";
-			imagen = getMultipartFile("static/images/barcelonabynight.png");
+			//imagen = getMultipartFile("static/images/barcelonabynight.png");
 			products.save(new Product("BarcelonaByNight", activities,"Barcelona","Noche",imagen,"Una noche de fantasía en Barcelona",60));
 			
 			//Toledo experiences
 			activities = "Desayuno, Visita guiada por los monumentos más importantes de Toledo";
-			imagen = getMultipartFile("static/images/toledobymorning.png");
+			//imagen = getMultipartFile("static/images/toledobymorning.png");
 			products.save(new Product("ToledoByMorning", activities,"Toledo","Mañana",imagen,"Ideal para conocer Toledo",30));
 			
 			activities = "Almuerzo, circuito de spa con masaje incluido y merienda temática";
-			imagen = getMultipartFile("static/images/toledobyevening.png");
+			//imagen = getMultipartFile("static/images/toledobyevening.png");
 			products.save(new Product("ToledoByEvening", activities,"Toledo","Tarde",imagen,"Vas a adorar Toledo",45));
 			
 			activities = "Cena en hotel burbuja contemplando las estrellas";
-			imagen = getMultipartFile("static/images/toledobynight.png");
+			//imagen = getMultipartFile("static/images/toledobynight.png");
 			products.save(new Product("ToledoByNight", activities,"Toledo","Noche",imagen,"Una noche de fantasía en Toledo",50));
 			
 			//Sevilla experiences
 			activities = "Desayuno, visita guiada por el casco antiguo de Sevilla";
-			imagen = getMultipartFile("static/images/sevillabymorning.png");
+			//imagen = getMultipartFile("static/images/sevillabymorning.png");
 			products.save(new Product("SevillaByMorning", activities,"Sevilla","Mañana",imagen,"Ideal para conocer Sevilla",60));
 			
 			activities = "Almuerzo con vistas al río Guadalquivir, kayak por el río";
-			imagen = getMultipartFile("static/images/sevillabyevening.png");
+			//imagen = getMultipartFile("static/images/sevillabyevening.png");
 			products.save(new Product("SevillaByEvening", activities,"Sevilla","Tarde",imagen,"Vas a adorar Sevilla",80));
 			
 			activities = "Cena en Tablao Flamenco con espectáculo";
-			imagen = getMultipartFile("static/images/sevillabynight.png");
+			//imagen = getMultipartFile("static/images/sevillabynight.png");
 			products.save(new Product("SevillaByNight", activities,"Sevilla","Noche",imagen,"Una noche de fantasía en Sevilla",30));
 			
 			//Pontevedra experiences
 			activities = "Desayuno, visita a enoteca con cata";
-			imagen = getMultipartFile("static/images/pontevedrabymorning.png");
+			//imagen = getMultipartFile("static/images/pontevedrabymorning.png");
 			products.save(new Product("PontevedraByMorning", activities,"Pontevedra","Mañana",imagen,"Ideal para conocer Pontevedra",40));
 			
 			activities = "Almuerzo con mariscada, clase de surf";
-			imagen = getMultipartFile("static/images/pontevedrabyevening.png");
+			//imagen = getMultipartFile("static/images/pontevedrabyevening.png");
 			products.save(new Product("PontevedraByEvening", activities,"Pontevedra","Tarde",imagen,"Vas a adorar Pontevedra",50));
 			
 			activities = "Noche en hórreos con cena incluida";
-			imagen = getMultipartFile("static/images/pontevedrabynight.png");
+			//imagen = getMultipartFile("static/images/pontevedrabynight.png");
 			products.save(new Product("PontevedraByNight", activities,"Pontevedra","Noche",imagen,"Una noche de fantasía en Pontevedra",60));
+		
 		}
 		
 
@@ -150,7 +154,7 @@ public class ProductController {
 			
 			User user = users.findByName(name).orElseThrow();
 			if (user != null) {
-				model.addAttribute("username", user.getName());		
+				model.addAttribute("usernombre", user.getName());		
 				model.addAttribute("user",user.getName());
 				model.addAttribute("admin", request.isUserInRole("ADMIN"));
 			}
@@ -182,7 +186,7 @@ public class ProductController {
 			
 			User user = users.findByName(name).orElseThrow();
 			if (user != null) {
-				model.addAttribute("username", user.getName());		
+				model.addAttribute("usernombre", user.getName());		
 				model.addAttribute("user",user.getName());
 				model.addAttribute("admin", request.isUserInRole("ADMIN"));
 			}
@@ -213,7 +217,7 @@ public class ProductController {
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
 			user = users.findByName(name).orElseThrow();
-			model.addAttribute("username", user.getName());		
+			model.addAttribute("usernombre", user.getName());		
 			model.addAttribute("user",user.getName());
 			model.addAttribute("admin", request.isUserInRole("ADMIN"));
 			model.addAttribute("usersession",user.getName());
@@ -244,7 +248,7 @@ public class ProductController {
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
 			user = users.findByName(name).orElseThrow();
-			model.addAttribute("username", user.getName());		
+			model.addAttribute("usernombre", user.getName());		
 			model.addAttribute("user",user.getName());
 			model.addAttribute("admin", request.isUserInRole("ADMIN"));
 			model.addAttribute("usersession",user.getName());
@@ -279,7 +283,7 @@ public class ProductController {
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());		
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		
@@ -296,7 +300,7 @@ public class ProductController {
 		
 		User user = users.findByName(name).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());		
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		return "insert_product";
@@ -311,33 +315,44 @@ public class ProductController {
 		
 		User user = users.findByName(nameuser).orElseThrow();
 
-		model.addAttribute("username", user.getName());		
+		model.addAttribute("usernombre", user.getName());		
 		model.addAttribute("user", user.getName());		
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
-		byte[] bytes;
+		if(!name.equals("") && !activities.equals("") && !description.equals("") && price>0) {
+			byte[] bytes;
 
-        if (image != null) {
-            try {
-                // Por si se quiere guardar tambien el nombre y el tamaño de la imagen
-                String nombreFoto = image.getOriginalFilename();
-                long tamañoFoto = image.getSize();
+	        if (image != null) {
+	            try {
+	                // Por si se quiere guardar tambien el nombre y el tamaño de la imagen
+	                String nombreFoto = image.getOriginalFilename();
+	                long tamañoFoto = image.getSize();
 
-                bytes = image.getBytes();
+	                bytes = image.getBytes();
 
-                //String formatName = nombreFoto.substring(nombreFoto.lastIndexOf(".") + 1);
-                //bytes = imageServ.resize(bytes, 200, 200, formatName);
+	                //String formatName = nombreFoto.substring(nombreFoto.lastIndexOf(".") + 1);
+	                //bytes = imageServ.resize(bytes, 200, 200, formatName);
 
-                Blob imagen = new javax.sql.rowset.serial.SerialBlob(bytes);
+	                Blob imagen = new javax.sql.rowset.serial.SerialBlob(bytes);
 
-                String bphoto = java.util.Base64.getEncoder().encodeToString(bytes);
-                Product product = new Product(name,activities,city,time,imagen,description,price);
-                products.save(product);
-            }
-            catch (Exception exc){
-                return "Fallo al establecer la imagen de perfil";
-            }
-        }
-		return "product_added";
+	                String bphoto = java.util.Base64.getEncoder().encodeToString(bytes);
+	                Product product = new Product(name,activities,city,time,imagen,description,price);
+	                products.save(product);
+	            }
+	            catch (Exception exc){
+	                return "Fallo al establecer la imagen de perfil";
+	            }
+	        }else {
+	        	Product product = new Product(name,activities,city,time,null,description,price);
+	        	products.save(product);
+	        }
+	        
+	        return "product_added";
+		}else {
+			model.addAttribute("errorcampos", true);
+			return "insert_product";
+		}
+		
+		
 	}
 	/*
 	@GetMapping("/products/{id}/delete_product")
