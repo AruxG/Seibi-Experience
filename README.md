@@ -127,12 +127,17 @@ Por otro lado, se presenta el diagrama de clases UML, que establece los tipos de
 
 ![SeibiUML](https://user-images.githubusercontent.com/48557378/110474511-0c296080-80e0-11eb-80b3-31eeb3808352.png)
 
+## Diagrama de clases y templates
+En el presente diagrama se presentan la totalidad de clases presentes en ambas aplicaciones (separadas en dos islas), marcando la notación de las mismas mediante código de colores, y reflejando la relación entre ellas (mayoritariamente de asociación). Asimismo, se incluyen todas las plantillas presentes, dentro de los controller que gestionan las mismas, salvando las templates de *foot* y las diferentes *header...*, que son referenciadas desde las propias plantillas.
+
+![classDiagram](https://user-images.githubusercontent.com/48557378/114268401-287f2c80-9a01-11eb-806d-96bad2eea1a9.png)
+
 ## Instrucciones para el despliegue de la aplicación
-De cara a poder realizar el despliegue de la aplicación, debemos compilar la misma y generar el jar pertinente, así como adecuar la máquina virtual para poder correr en la misma la aplicación.
+De cara a poder realizar el despliegue de la aplicación, se debe compilar la misma y generar el jar pertinente, así como adecuar la máquina virtual para poder correr en la misma la aplicación.
 
-El primer paso, la compilación, se realiza fácilmente a través de SpringTool, ya que permite generar el jar a partir del propio proyecto usando la build de Maven(Click Derecho en el root del proyecto→Run as...→Maven build...→), y fijando en este como "Goals" *clean package*. Hecho esto, aplicamos cambios y pulsamos *Run*. Con ello, ya disponemos de nuestra aplicación compilada y el jar generado. Es importante tener que en cuenta que, para que estos cambios se reflejen en el proyecto en GitHub, debemos editar el .gitignore para no excluir la carpeta *target* (en que se nos ha generado el jar).
+El primer paso, la compilación, se realiza fácilmente a través de SpringTool, ya que permite generar el jar a partir del propio proyecto usando la build de Maven(Click Derecho en el root del proyecto→Run as...→Maven build...→), y fijando en este como "Goals" *clean package*. Hecho esto, se aplican los cambios y se pulsa *Run*. Con ello, ya se dispone de la aplicación compilada y el jar generado  (este proceso se realiza para ambas aplicaciones). Es importante tener que en cuenta que, para que estos cambios se reflejen en el proyecto en GitHub, se ha de editar el .gitignore para no excluir la carpeta *target* (en que se ha generado el jar).
 
-En cuanto a la configuración de la máquina virtual (habiendo instalado la misma, en nuestro caso, a través de Virtual Box con una imagen del sistema operativo), debemos instalar mySQL Workbench y Java8 para poder correr la aplicación.
+En cuanto a la configuración de la máquina virtual (habiendo instalado la misma, por ejemplo, a través de Virtual Box con una imagen del sistema operativo), se requiere instalar mySQL Workbench y Java8 para poder correr la aplicación.
 
 Para el primero, los pasos son los siguientes, en caso de instalarlo mediante *apt*:
 * Descargar el archivo de configuración del repositorio apt (https://dev.mysql.com/downloads/repo/apt/)
@@ -140,13 +145,13 @@ Para el primero, los pasos son los siguientes, en caso de instalarlo mediante *a
 * Actualizar la caché apt (*sudo apt update*)
 * Instalar, ahora sí, mySQL Workbench (*sudo apt install mysql-workbench-community*)
 
-Con ello ya disponemos de mySQL Workbench, pero si queremos evitar problemas para cargar nuestra BD, debemos llevar a cabo la siguiente configuración:
-* Habiendo entrado en la aplicación (ejecutando la instrucción *mysql-workbench*), debemos limpiar los privilegios (*FLUSH PRIVILEGES;*)
-* Ello nos da capacidad para modificar la contraseña de conexión a la BD (*ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';*)
-* Podemos ver el estado actual mediante *SELECT user,authentication_string,plugin,host FROM mysql.user;*
+Con ello ya se dispone de mySQL Workbench, pero si se quiere evitar problemas para cargar la propia BD, se ha de llevar a cabo la siguiente configuración:
+* Habiendo entrado en la aplicación (ejecutando la instrucción *mysql-workbench*), limpiar los privilegios (*FLUSH PRIVILEGES;*)
+* Ello da capacidad para modificar la contraseña de conexión a la BD (*ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';*)
+* Se puede ver el estado actual mediante *SELECT user,authentication_string,plugin,host FROM mysql.user;*
 
-Ya disponemos de mySQL instalado, por lo que sólo resta instalar Java8:
+Ya se dispone de mySQL instalado. Tras ello se puede crear el *schema* para que todo funcione correctamente, y ya sólo resta instalar Java8:
 * Para evitar problemas de dependencias primero ejecutamos *sudo apt install default-jre*
 * Tras ello podemos instalar directamente con *sudo apt install openjdk-8-jdk*
 
-Así, ya disponemos de ambas herramientas instaladas y podemos correr nuestra aplicación en la máquina virtual. Ello requiere de descargar los jar en la misma (tanto de la aplicación principal como de la aplicación de servicios) del repositorio en que se hayan, y ejecutar cada uno mediante *java -jar nombre-versión.jar*.
+Así, ya se han obtenido ambas herramientas y se puede correr la aplicación en la máquina virtual. Ello requiere de descargar los jar en la misma (tanto de la aplicación principal como de la aplicación de servicios) del repositorio en que se hayan, y ejecutar cada uno mediante *java -jar nombre-versión.jar*. Estos jar deben ejecutarse en consolas diferentes (o en diferentes pestañas de la misma), ya que esta quedará detenida con el proceso. Para poder acceder a la aplicación ejecutada, se debe introducir en el navegador que se desee la url *https://localhost:8443*.
