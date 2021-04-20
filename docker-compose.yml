@@ -1,0 +1,13 @@
+web:
+ image: rociiocs/seibi-experience
+ ports:
+  - "8443:8443"
+ environment:
+  - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mysql
+  - spring.jpa.hibernate.ddl-auto=create-drop
+ links:
+  - db
+db:
+ image: mysql
+ environment: 
+  MYSQL_ROOT_PASSWORD: seibi1234
