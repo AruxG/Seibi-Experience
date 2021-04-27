@@ -14,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,9 @@ public class OrderzController {
 	@Autowired
 	private UserRepository users;
 
+	@Value("${direccion}")
+	private String localhost;
+	
 	@GetMapping("/")
 	public Collection<Orderz> getOrders() {
 		return orders.findAll();
@@ -72,7 +76,7 @@ public class OrderzController {
 		datos.add(""+num_tarjeta);
 		datos.add(""+CVV);
 		RestTemplate restTemplate = new RestTemplate();
-		String url="http://localhost:8080/payment";
+		String url="http://"+localhost+":8080/payment";
 		boolean datosCorrectos = restTemplate.postForObject(url, datos, boolean.class);
 		System.out.println(datosCorrectos);
 		int total = user.sumTotal();
@@ -98,6 +102,7 @@ public class OrderzController {
 	@GetMapping("/export/pdf/{id}")
 	public String exportPDF(Model model, HttpServletRequest request, @PathVariable Long id)
 			throws IOException, UnknownHostException {
+		
 		String name = request.getUserPrincipal().getName();
 
 		User user = users.findByName(name).orElseThrow();
@@ -109,7 +114,7 @@ public class OrderzController {
 		Orderz orderz = orders.findById(id).orElseThrow();
 		
 		RestTemplate restTemplate = new RestTemplate();
-		String url="http://localhost:8080/pdf";
+		String url="http://"+localhost+":8080/pdf";
 		boolean datosCorrectos = restTemplate.postForObject(url, orderz, boolean.class);
 		if(datosCorrectos) {
 			return "pdf_sent";
