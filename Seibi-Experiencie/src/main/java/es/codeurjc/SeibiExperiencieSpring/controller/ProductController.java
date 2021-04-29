@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -146,7 +149,7 @@ public class ProductController {
 
 	}
 
-	
+	@Cacheable
 	@GetMapping("/")
 	public String showPosts(Model model, HttpSession session,HttpServletRequest request,@PageableDefault(size = 5) Pageable page) {
 		if(request.getUserPrincipal()!=null) {
@@ -172,6 +175,8 @@ public class ProductController {
 		model.addAttribute("hora", "Any");
 		return "index";
 	}
+	
+	@Cacheable
 	@PostMapping("/")
 	public String showPostsFiltered(
 			Model model, 
@@ -211,6 +216,8 @@ public class ProductController {
 		model.addAttribute("hora", time);
 		return "index";
 	}
+	
+	@Cacheable
 	@GetMapping("/products/{id}")
 	public String showPost(Model model,HttpSession httpSession,HttpServletRequest request, @PathVariable long id) throws SQLException {
 		User user = null;
@@ -242,6 +249,7 @@ public class ProductController {
 		return "show_product";
 	}
 	
+	@CacheEvict
 	@PostMapping("/products/{id}")
 	public String deleteProduct(Model model,HttpServletRequest request, @RequestParam Long id) throws SQLException {
 		User user = null;
@@ -277,6 +285,7 @@ public class ProductController {
 		return "show_product";
 	}
 
+	@CachePut
 	@GetMapping("/products/{id}/buy")
 	public String buyProduct(Model model, @PathVariable long id,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -294,6 +303,7 @@ public class ProductController {
 		return "product_cart";
 	}
 
+	@Cacheable
 	@GetMapping("/admin")
 	public String anadirProducto(Model model,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -306,6 +316,7 @@ public class ProductController {
 		return "insert_product";
 	}
 	
+	@CacheEvict
 	@PostMapping("/admin/addProduct")
 	public String productoAnadido(Model model, HttpServletRequest request,
 			@RequestParam String name,@RequestParam String city, @RequestParam String time,
@@ -369,6 +380,8 @@ public class ProductController {
 		return "delete_product";
 	}
 	*/
+	
+	@CachePut
 	@PostMapping("/subirFoto")
 	public String subirFoto(Model model, @RequestParam MultipartFile image, @RequestParam Long id_producto,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();

@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +49,7 @@ public class OrderzController {
 		return orders.findAll();
 	}
 
+	@Cacheable
 	@GetMapping("/new")
 	public String newOrder(Model model, HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -61,6 +64,7 @@ public class OrderzController {
 		return "payment_gateway";
 	}
 
+	@CacheEvict
 	@PostMapping("/realizar_pago")
 	public String orderPayment(Model model, HttpServletRequest request, @RequestParam String mail,
 			@RequestParam int num_tarjeta, @RequestParam int CVV) {
@@ -99,6 +103,7 @@ public class OrderzController {
 		}
 	}
 
+	@Cacheable
 	@GetMapping("/export/pdf/{id}")
 	public String exportPDF(Model model, HttpServletRequest request, @PathVariable Long id)
 			throws IOException, UnknownHostException {

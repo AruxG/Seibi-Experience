@@ -3,6 +3,7 @@ package es.codeurjc.SeibiExperiencieSpring.configuration;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ public class DatabaseUsersLoader {
     @Autowired
     private PasswordEncoder passwordEncoder;
  
+    @CacheEvict
     @PostConstruct
     private void initDatabase() {
     	if(users.count()==0) {

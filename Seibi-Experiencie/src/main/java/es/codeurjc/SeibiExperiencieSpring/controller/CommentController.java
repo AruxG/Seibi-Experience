@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +34,13 @@ public class CommentController{
 	@Autowired
 	private UserRepository users;
 	
+	@Cacheable
 	@GetMapping("/")
 	public Collection<Comment> getComments(){
 		return comments.findAll();
 	}
+	
+	@Cacheable
 	@GetMapping("/create_comment")
 	public String newComment(Model model,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -47,6 +52,8 @@ public class CommentController{
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		return "create_comment";
 	}
+	
+	@CacheEvict
 	@PostMapping("/comment_created")
 	public String savedComment(Model model, @RequestParam String text,@PathVariable Long id,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -62,6 +69,7 @@ public class CommentController{
 		return "comment_created";
 	}
 	
+	@CacheEvict
 	@PostMapping("/delete_comment")
 	public String deleteComment(Model model, @RequestParam long id_comment, @PathVariable Long id,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();

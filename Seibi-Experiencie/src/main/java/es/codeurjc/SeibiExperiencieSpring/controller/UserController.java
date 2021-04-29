@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +37,7 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 	 
 
+	@Cacheable
 	@GetMapping("/show_user")
 	public String showUser(Model model,HttpServletRequest request){
 		String name = request.getUserPrincipal().getName();
@@ -48,7 +52,6 @@ public class UserController {
 		}
 		return "show_user";
 	}
-	
 	
 	@GetMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
@@ -95,11 +98,12 @@ public class UserController {
 	public String logout(HttpSession session) {
 		return "user_unloged";
 	}
+	
 	@GetMapping("/signup")
 	public String signUp(){
 		return "signup";
 	}
-	
+
 	@PostMapping("/signup")
 	public String signUp(Model model, @RequestParam String user, @RequestParam String password, @RequestParam String password2) {
 		Optional<User> userold = users.findByName(user);
@@ -119,6 +123,7 @@ public class UserController {
 		}
 	}
 	
+	@Cacheable
 	@GetMapping("/carrito")
 	public String show_carrito(Model model,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -135,6 +140,7 @@ public class UserController {
 		return "carrito";
 	}
 	
+	@CachePut
 	@PostMapping("/carrito")
 	public String deleteProduct(Model model, @RequestParam Long id_producto,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
