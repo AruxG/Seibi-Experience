@@ -1,33 +1,43 @@
-web:
- image: rociiocs/seibi-experience
- ports:
-  - "8443:8443"
- environment:
-  - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mysql
-  - spring.jpa.hibernate.ddl-auto=create
- links:
-  - db
-  - serv
+version: "3.4"
 
-web2:
- image: rociiocs/seibi-experience
- ports:
-  - "8444:8443"
- environment:
-  - server.port=8443
-  - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mysql
-  - spring.jpa.hibernate.ddl-auto=create
- links:
-  - db
-  - serv
+services:
+ db:
+   image: mysql
+   environment: 
+    MYSQL_ROOT_PASSWORD: seibi1234
 
-db:
- image: mysql
- environment: 
-  MYSQL_ROOT_PASSWORD: seibi1234
+ web:
+  image: rociiocs/seibi-experience
+  ports:
+   - "8443:8443"
+  environment:
+   - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mysql
+   - spring.jpa.hibernate.ddl-auto=create
+  links:
+   - "db:db"
+   - serv
+  restart: on-failure
+  depends_on:
+   - db
 
-serv:
- image: rociiocs/seibi-experience-services
- ports:
-  - "8080:8080"
+ web2:
+  image: rociiocs/seibi-experience
+  ports:
+   - "8444:8443"
+  environment:
+   - server.port=8443
+   - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mysql
+   - spring.jpa.hibernate.ddl-auto=create
+  links:
+   - "db:db"
+   - serv
+  restart: on-failure
+  depends_on:
+   - db
+
+ serv:
+  image: rociiocs/seibi-experience-services
+  ports:
+   - "8080:8080"
+
 

@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +52,8 @@ public class ProductController {
 	
 	@Autowired
 	private UserRepository users;
+	
+	private static Log log = LogFactory.getLog(ProductController.class);
 	
 	public Blob getMultipartFile(String path) throws IOException {
 		File file = null;
@@ -152,6 +157,7 @@ public class ProductController {
 	@Cacheable
 	@GetMapping("/")
 	public String showPosts(Model model, HttpSession session,HttpServletRequest request,@PageableDefault(size = 5) Pageable page) {
+		log.info("GET /");
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
 			
@@ -186,6 +192,7 @@ public class ProductController {
 			@RequestParam String time,
 			HttpServletRequest request) 
 	{
+		log.info("GET /");
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
 			
@@ -217,9 +224,11 @@ public class ProductController {
 		return "index";
 	}
 	
-	@Cacheable
+	
 	@GetMapping("/products/{id}")
+	@Cacheable(value="id",key="{ #root.methodName, #id}")
 	public String showPost(Model model,HttpSession httpSession,HttpServletRequest request, @PathVariable long id) throws SQLException {
+		log.info("hola");
 		User user = null;
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
@@ -252,6 +261,7 @@ public class ProductController {
 	@CacheEvict
 	@PostMapping("/products/{id}")
 	public String deleteProduct(Model model,HttpServletRequest request, @RequestParam Long id) throws SQLException {
+		log.info("POST /products/{id}");
 		User user = null;
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
@@ -288,6 +298,7 @@ public class ProductController {
 	@CachePut
 	@GetMapping("/products/{id}/buy")
 	public String buyProduct(Model model, @PathVariable long id,HttpServletRequest request) {
+		log.info("PUT /products/{id}/buy");
 		String name = request.getUserPrincipal().getName();
 		
 		User user = users.findByName(name).orElseThrow();
@@ -306,6 +317,7 @@ public class ProductController {
 	@Cacheable
 	@GetMapping("/admin")
 	public String anadirProducto(Model model,HttpServletRequest request) {
+		log.info("GET /admin");
 		String name = request.getUserPrincipal().getName();
 		
 		User user = users.findByName(name).orElseThrow();
@@ -322,6 +334,7 @@ public class ProductController {
 			@RequestParam String name,@RequestParam String city, @RequestParam String time,
 			@RequestParam String activities, @RequestParam String description,@RequestParam int price,
 			@RequestParam MultipartFile image) {
+		log.info("POST /admin/addProduct");
 		String nameuser = request.getUserPrincipal().getName();
 		
 		User user = users.findByName(nameuser).orElseThrow();
@@ -384,6 +397,7 @@ public class ProductController {
 	@CachePut
 	@PostMapping("/subirFoto")
 	public String subirFoto(Model model, @RequestParam MultipartFile image, @RequestParam Long id_producto,HttpServletRequest request) {
+		log.info("PUT /subirFoto");
 		String name = request.getUserPrincipal().getName();
 		
 		User user = users.findByName(name).orElseThrow();
