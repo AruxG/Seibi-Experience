@@ -13,12 +13,14 @@ services:
   environment:
    - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mysql
    - spring.jpa.hibernate.ddl-auto=create
+   - direccion=serv
   links:
    - "db:db"
    - serv
   restart: on-failure
   depends_on:
    - db
+   - serv
 
  web2:
   image: rociiocs/seibi-experience
@@ -28,23 +30,25 @@ services:
    - server.port=8443
    - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/mysql
    - spring.jpa.hibernate.ddl-auto=create
+   - direccion=serv
   links:
    - "db:db"
    - serv
   restart: on-failure
   depends_on:
    - db
+   - serv
 
  serv:
   image: rociiocs/seibi-experience-services
   ports:
    - "8080:8080"
 
-
  haproxy:
   image: rociiocs/haproxy
   ports:
     - "80:80"
+    - "443:443"
   depends_on:
     - web1
     - web2
