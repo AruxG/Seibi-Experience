@@ -6,7 +6,7 @@ services:
    environment: 
     MYSQL_ROOT_PASSWORD: seibi1234
 
- web:
+ web1:
   image: rociiocs/seibi-experience
   ports:
    - "8443:8443"
@@ -40,4 +40,12 @@ services:
   ports:
    - "8080:8080"
 
+
+ haproxy:
+  image: rociiocs/haproxy
+  ports:
+    - "80:80"
+  depends_on:
+    - web1
+    - web2
 
