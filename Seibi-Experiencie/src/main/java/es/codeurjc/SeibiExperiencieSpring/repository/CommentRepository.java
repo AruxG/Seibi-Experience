@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import es.codeurjc.SeibiExperiencieSpring.model.Comment;
 
-@CacheConfig(cacheNames="comments")
+@CacheConfig(cacheNames="seibi")
 public interface CommentRepository extends JpaRepository<Comment,Long>{
 	@Cacheable
 	Comment findById(long id);
@@ -16,6 +16,7 @@ public interface CommentRepository extends JpaRepository<Comment,Long>{
 	@Override
 	<S extends Comment> S save(S s);
 	
+	@CacheEvict(allEntries = true)
 	@Override
 	void delete(Comment comment);
 }

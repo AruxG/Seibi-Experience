@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import es.codeurjc.SeibiExperiencieSpring.model.Comment;
 import es.codeurjc.SeibiExperiencieSpring.model.Product;
 
-@CacheConfig(cacheNames="products")
+@CacheConfig(cacheNames="seibi")
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Cacheable
 	Page<Product> findByCity(String city, Pageable page);
@@ -31,5 +31,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	Product findById(long id);
 	
 	@CacheEvict(allEntries=true)
+	@Override
 	Product save(Product product);
 }

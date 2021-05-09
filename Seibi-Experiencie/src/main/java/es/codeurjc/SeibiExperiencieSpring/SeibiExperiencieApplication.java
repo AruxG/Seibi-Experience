@@ -40,10 +40,9 @@ public class SeibiExperiencieApplication {
 		 
 	 }
 	
-
 	 @Bean
 	    public CacheManager cacheManager() {
 	    	logger.info("Activating cache...");
-	    	return new ConcurrentMapCacheManager("products");
+	    	return new ConcurrentMapCacheManager("seibi");
 	    }
 }
