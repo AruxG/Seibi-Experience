@@ -52,7 +52,6 @@ public class OrderzController {
 		return orders.findAll();
 	}
 
-	@Cacheable
 	@GetMapping("/new")
 	public String newOrder(Model model, HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -67,7 +66,6 @@ public class OrderzController {
 		return "payment_gateway";
 	}
 
-	@CacheEvict
 	@PostMapping("/realizar_pago")
 	public String orderPayment(Model model, HttpServletRequest request, @RequestParam String mail,
 			@RequestParam int num_tarjeta, @RequestParam int CVV) {
@@ -106,7 +104,6 @@ public class OrderzController {
 		}
 	}
 
-	@Cacheable
 	@GetMapping("/export/pdf/{id}")
 	public String exportPDF(Model model, HttpServletRequest request, @PathVariable Long id)
 			throws IOException, UnknownHostException {

@@ -53,7 +53,6 @@ public class ProductController {
 	@Autowired
 	private UserRepository users;
 	
-	private static Log log = LogFactory.getLog(ProductController.class);
 	
 	public Blob getMultipartFile(String path) throws IOException {
 		File file = null;
@@ -154,10 +153,8 @@ public class ProductController {
 
 	}
 
-	@Cacheable
 	@GetMapping("/")
 	public String showPosts(Model model, HttpSession session,HttpServletRequest request,@PageableDefault(size = 5) Pageable page) {
-		log.info("GET /");
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
 			
@@ -182,7 +179,6 @@ public class ProductController {
 		return "index";
 	}
 	
-	@Cacheable
 	@PostMapping("/")
 	public String showPostsFiltered(
 			Model model, 
@@ -192,7 +188,6 @@ public class ProductController {
 			@RequestParam String time,
 			HttpServletRequest request) 
 	{
-		log.info("GET /");
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
 			
@@ -226,9 +221,7 @@ public class ProductController {
 	
 	
 	@GetMapping("/products/{id}")
-	@Cacheable(value="id",key="{ #root.methodName, #id}")
 	public String showPost(Model model,HttpSession httpSession,HttpServletRequest request, @PathVariable long id) throws SQLException {
-		log.info("hola");
 		User user = null;
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
@@ -239,7 +232,7 @@ public class ProductController {
 			model.addAttribute("usersession",user.getName());
 		}
 		
-		Product product = products.findById(id).orElseThrow();
+		Product product = products.findById(id);
 		if(user!=null) {
 			if(user.containsProduct(product)) {
 				model.addAttribute("Carrito", true);
@@ -261,7 +254,6 @@ public class ProductController {
 	@CacheEvict
 	@PostMapping("/products/{id}")
 	public String deleteProduct(Model model,HttpServletRequest request, @RequestParam Long id) throws SQLException {
-		log.info("POST /products/{id}");
 		User user = null;
 		if(request.getUserPrincipal()!=null) {
 			String name = request.getUserPrincipal().getName();
@@ -295,10 +287,8 @@ public class ProductController {
 		return "show_product";
 	}
 
-	@CachePut
 	@GetMapping("/products/{id}/buy")
 	public String buyProduct(Model model, @PathVariable long id,HttpServletRequest request) {
-		log.info("PUT /products/{id}/buy");
 		String name = request.getUserPrincipal().getName();
 		
 		User user = users.findByName(name).orElseThrow();
@@ -307,17 +297,15 @@ public class ProductController {
 		model.addAttribute("user", user.getName());		
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		
-		Product product = products.findById(id).orElseThrow();
+		Product product = products.findById(id);
 		user.addProduct(product);
 		users.save(user);
 		model.addAttribute("product", product);
 		return "product_cart";
 	}
 
-	@Cacheable
 	@GetMapping("/admin")
 	public String anadirProducto(Model model,HttpServletRequest request) {
-		log.info("GET /admin");
 		String name = request.getUserPrincipal().getName();
 		
 		User user = users.findByName(name).orElseThrow();
@@ -327,14 +315,12 @@ public class ProductController {
 		model.addAttribute("admin", request.isUserInRole("ADMIN"));
 		return "insert_product";
 	}
-	
-	@CacheEvict
+
 	@PostMapping("/admin/addProduct")
 	public String productoAnadido(Model model, HttpServletRequest request,
 			@RequestParam String name,@RequestParam String city, @RequestParam String time,
 			@RequestParam String activities, @RequestParam String description,@RequestParam int price,
 			@RequestParam MultipartFile image) {
-		log.info("POST /admin/addProduct");
 		String nameuser = request.getUserPrincipal().getName();
 		
 		User user = users.findByName(nameuser).orElseThrow();
@@ -393,11 +379,9 @@ public class ProductController {
 		return "delete_product";
 	}
 	*/
-	
-	@CachePut
+
 	@PostMapping("/subirFoto")
 	public String subirFoto(Model model, @RequestParam MultipartFile image, @RequestParam Long id_producto,HttpServletRequest request) {
-		log.info("PUT /subirFoto");
 		String name = request.getUserPrincipal().getName();
 		
 		User user = users.findByName(name).orElseThrow();

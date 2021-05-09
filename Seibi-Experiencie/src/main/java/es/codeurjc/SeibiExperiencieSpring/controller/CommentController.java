@@ -36,13 +36,11 @@ public class CommentController{
 	@Autowired
 	private UserRepository users;
 	
-	@Cacheable
 	@GetMapping("/")
 	public Collection<Comment> getComments(){
 		return comments.findAll();
 	}
 	
-	@Cacheable
 	@GetMapping("/create_comment")
 	public String newComment(Model model,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -55,7 +53,6 @@ public class CommentController{
 		return "create_comment";
 	}
 	
-	@CacheEvict
 	@PostMapping("/comment_created")
 	public String savedComment(Model model, @RequestParam String text,@PathVariable Long id,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -71,7 +68,6 @@ public class CommentController{
 		return "comment_created";
 	}
 	
-	@CacheEvict
 	@PostMapping("/delete_comment")
 	public String deleteComment(Model model, @RequestParam long id_comment, @PathVariable Long id,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();

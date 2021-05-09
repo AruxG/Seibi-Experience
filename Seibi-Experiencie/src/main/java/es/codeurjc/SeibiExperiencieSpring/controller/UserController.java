@@ -36,8 +36,6 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	 
-
-	@Cacheable
 	@GetMapping("/show_user")
 	public String showUser(Model model,HttpServletRequest request){
 		String name = request.getUserPrincipal().getName();
@@ -123,7 +121,6 @@ public class UserController {
 		}
 	}
 	
-	@Cacheable
 	@GetMapping("/carrito")
 	public String show_carrito(Model model,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
@@ -140,7 +137,6 @@ public class UserController {
 		return "carrito";
 	}
 	
-	@CachePut
 	@PostMapping("/carrito")
 	public String deleteProduct(Model model, @RequestParam Long id_producto,HttpServletRequest request) {
 		String name = request.getUserPrincipal().getName();
