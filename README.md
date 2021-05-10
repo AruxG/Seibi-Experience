@@ -2,6 +2,8 @@
 Seibi Experience busca proporcionar una forma cómoda de visualizar, comprar y compartir packs de experiencias entre usuarios.
 
 Se trata de una aplicación web en la cual podremos encontrarnos con diferentes packs de experiencias por la ciudad de Madrid, es decir, una serie de actividades combinadas y diseñadas para facilitar la vida del usuario y permitirle vivir experiencias únicas y apasionantes. Con Seibi Experiencie, los usuarios podrán también ver recomendaciones de otros usuarios, comentarios y otras opciones que les ayuden a decidir y elegir la experiencia que quieren vivir en cada momento, pudiendo emplear también para ello búsquedas simplificadas. Es destacable que para llevar a cabo la compra de packs de experiencias se requiere de registro en la web.
+
+**Demonstración en vídeo:**
 ## Funcionalidad pública y privada
 Se detallan, de forma pormenorizada, la distinción entre funcionalidades públicas y privadas o particulares de cada usuario:
 * __Funcionalidades públicas__: visualizar comentarios de usuarios y ofertas de packs sin registro
@@ -131,6 +133,11 @@ Por otro lado, se presenta el diagrama de clases UML, que establece los tipos de
 En el presente diagrama se presentan la totalidad de clases presentes en ambas aplicaciones (separadas en dos islas), marcando la notación de las mismas mediante código de colores, y reflejando la relación entre ellas (mayoritariamente de asociación). Asimismo, se incluyen todas las plantillas presentes, dentro de los controller que gestionan las mismas, salvando las templates de *foot* y las diferentes *header...*, que son referenciadas desde las propias plantillas.
 
 ![classDiagram](https://user-images.githubusercontent.com/48557378/114268401-287f2c80-9a01-11eb-806d-96bad2eea1a9.png)
+
+## Diagrama de Componentes y Comunicación
+A continuación se muestra el diagrama que refleja los diferentes componentes que constituyen la aplicación y la comunicación y conexiones existentes entre ellos. Como se puede ver, hay presente un balanceador de carga mediante HAProxy, que se encarga de redirigir las peticiones a las diferentes instancias activas de la aplicación. Esta a su vez establece comunicación con la base de datos (o la caché distribuida, en caso de las consultas cacheadas ya realizadas con anterioridad) para servirse de los datos del programa. Finalmente, también se comunica con el servicio interno para llevar a cabo operaciones como la pasarela de pago o el envío de los recibos de pedidos al correo electrónico.
+
+![DiagramaComponentes](https://user-images.githubusercontent.com/48557378/117699888-9f0c7700-b1c5-11eb-81aa-22e40217b3ff.png)
 
 ## Instrucciones para el despliegue de la aplicación
 De cara a poder realizar el despliegue de la aplicación, se debe compilar la misma y generar el jar pertinente, así como adecuar la máquina virtual para poder correr en la misma la aplicación.
