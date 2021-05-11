@@ -20,11 +20,28 @@ public class CacheContentController {
     private CacheManager cacheManager;
 
     // Debug only
-    @RequestMapping(value = "/cache",method=RequestMethod.GET)
-    public Map<Object, Object> getCacheContent() {
+    @RequestMapping(value = "/cacheProduct",method=RequestMethod.GET)
+    public Map<Object, Object> getCacheProductContent() {
+    	/*
     	ConcurrentMapCacheManager cacheMgr = (ConcurrentMapCacheManager) cacheManager;
 		ConcurrentMapCache cache = (ConcurrentMapCache) cacheMgr.getCache("seibi");
 		return cache.getNativeCache();
+		*/
+		HazelcastCacheManager hazelcastCacheManager = (HazelcastCacheManager) cacheManager;
+        HazelcastCache hazelcastCache = (HazelcastCache) hazelcastCacheManager.getCache("products");
+        return hazelcastCache.getNativeCache();
+    }
+    
+    @RequestMapping(value = "/cacheOrderzs",method=RequestMethod.GET)
+    public Map<Object, Object> getCacheOrderzsContent() {
+    	/*
+    	ConcurrentMapCacheManager cacheMgr = (ConcurrentMapCacheManager) cacheManager;
+		ConcurrentMapCache cache = (ConcurrentMapCache) cacheMgr.getCache("seibi");
+		return cache.getNativeCache();
+		*/
+		HazelcastCacheManager hazelcastCacheManager = (HazelcastCacheManager) cacheManager;
+        HazelcastCache hazelcastCache = (HazelcastCache) hazelcastCacheManager.getCache("orderzs");
+        return hazelcastCache.getNativeCache();
     }
 
 }

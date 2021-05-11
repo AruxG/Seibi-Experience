@@ -1,13 +1,14 @@
 package es.codeurjc.SeibiExperiencieSpring.model;
 
 import java.util.Date;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
-public class Orderz{
+public class Orderz implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -23,7 +24,6 @@ public class Orderz{
 	private User user;
 	
 	@ManyToMany
-	
 	private List<Product> products;
 	
 	

@@ -11,6 +11,7 @@ public class Comment{
 	private long id;
 	
 	@ManyToOne
+	@JsonIgnore
 	private User usuario;
 	private String text;
 	

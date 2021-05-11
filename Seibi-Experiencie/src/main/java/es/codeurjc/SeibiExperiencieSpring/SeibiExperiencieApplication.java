@@ -1,9 +1,11 @@
 package es.codeurjc.SeibiExperiencieSpring;
 
 import java.util.Collections;
+import java.util.Properties;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.CacheManager;
@@ -17,11 +19,12 @@ import com.hazelcast.config.JoinConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.instance.impl.HazelcastInstanceFactory;
 import com.hazelcast.spring.cache.HazelcastCacheManager;
+import com.hazelcast.web.WebFilter;
 
 @SpringBootApplication
 @EnableHazelcastHttpSession
 @EnableCaching
-public class SeibiExperiencieApplication {
+public class SeibiExperiencieApplication implements CommandLineRunner{
 
 	private static final Log logger = LogFactory.getLog(SeibiExperiencieApplication.class);
 	
@@ -40,9 +43,32 @@ public class SeibiExperiencieApplication {
 		 
 	 }
 	
-	 @Bean
-	    public CacheManager cacheManager() {
-	    	logger.info("Activating cache...");
-	    	return new ConcurrentMapCacheManager("seibi");
-	    }
+	@Bean
+    public HazelcastInstance hazelcastInstance() {
+		return HazelcastInstanceFactory.newHazelcastInstance(config());
+    }
+	
+	@Bean
+	public CacheManager cacheManager() {
+		return new HazelcastCacheManager(hazelcastInstance());
+		//return new ConcurrentMapCacheManager("seibi");
+	}
+	
+	@Bean
+	public WebFilter webFilter(HazelcastInstance hazelcastInstance) {
+
+	    Properties properties = new Properties();
+	    properties.put("instance-name", hazelcastInstance.getName());
+	    properties.put("sticky-session", "false");
+	    properties.put("deferred-write", "true");
+
+	    return new WebFilter(properties);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

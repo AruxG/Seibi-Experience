@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import es.codeurjc.SeibiExperiencieSpring.repository.UserRepository;
 
 @Controller
 @RequestMapping("/orders")
-public class OrderzController {
+public class OrderzController implements Serializable{
 
 	@Autowired
 	private OrderzRepository orders;

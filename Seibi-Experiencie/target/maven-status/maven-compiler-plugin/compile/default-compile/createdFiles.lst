@@ -15,4 +15,5 @@ es\codeurjc\SeibiExperiencieSpring\model\User.class
 es\codeurjc\SeibiExperiencieSpring\model\Product.class
 es\codeurjc\SeibiExperiencieSpring\model\Comment.class
 es\codeurjc\SeibiExperiencieSpring\model\Orderz.class
+es\codeurjc\SeibiExperiencieSpring\controller\CacheContentController.class
 es\codeurjc\SeibiExperiencieSpring\configuration\SecurityConfiguration.class
