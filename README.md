@@ -3,7 +3,7 @@ Seibi Experience busca proporcionar una forma cómoda de visualizar, comprar y c
 
 Se trata de una aplicación web en la cual podremos encontrarnos con diferentes packs de experiencias por la ciudad de Madrid, es decir, una serie de actividades combinadas y diseñadas para facilitar la vida del usuario y permitirle vivir experiencias únicas y apasionantes. Con Seibi Experiencie, los usuarios podrán también ver recomendaciones de otros usuarios, comentarios y otras opciones que les ayuden a decidir y elegir la experiencia que quieren vivir en cada momento, pudiendo emplear también para ello búsquedas simplificadas. Es destacable que para llevar a cabo la compra de packs de experiencias se requiere de registro en la web.
 
-**Demonstración en vídeo:**
+**Demonstración en vídeo: https://www.youtube.com/watch?v=E6vSq3MUKv4**
 ## Funcionalidad pública y privada
 Se detallan, de forma pormenorizada, la distinción entre funcionalidades públicas y privadas o particulares de cada usuario:
 * __Funcionalidades públicas__: visualizar comentarios de usuarios y ofertas de packs sin registro
@@ -15,8 +15,8 @@ En Seibi Experience hay presentes un total de seis entidades, que son las siguie
 * __Pedidos__: con los diferentes packs seleccionados para su compra.
 * __Comentarios__: realizados por un usuario ante diferentes publicaciones.
 ## Descripción de las funcionalidades internas
-* Generar correo con el recibo del pedido
-* Simular pasarela de pago con tarjeta
+* Generar correo con el recibo del pedido: El servicio interno es el encargado de, a partir de los datos del pedido, generar un PDF con dichos datos, a modo de recibo, para posteriormente enviar dicho pdf al correo del usuario. El correo empleado es el introducido durante la pasarela de pago, y el recibo se manda como archivo adjunto al correo empleando Java.Mail
+* Simular pasarela de pago con tarjeta: También es el servicio interno el encargado de, a partir de los datos introducidos en la aplicación para realizar el pago, como son el número de tarjeta y el CSV, determinar si dichos datos son correctos y se puede, por tanto, proceder con la compra.
 ## Integrantes
 * Jia Qi (Rocío) Chen Sun, jq.chen.2017@alumnos.urjc.es, github.com/rociiocs
 * Antonio Robledinos Antón, a.robledinos.2017@alumnos.urjc.es, github.com/AruxG
@@ -132,7 +132,7 @@ Por otro lado, se presenta el diagrama de clases UML, que establece los tipos de
 ## Diagrama de clases y templates
 En el presente diagrama se presentan la totalidad de clases presentes en ambas aplicaciones (separadas en dos islas), marcando la notación de las mismas mediante código de colores, y reflejando la relación entre ellas (mayoritariamente de asociación). Asimismo, se incluyen todas las plantillas presentes, dentro de los controller que gestionan las mismas, salvando las templates de *foot* y las diferentes *header...*, que son referenciadas desde las propias plantillas.
 
-![classDiagram](https://user-images.githubusercontent.com/48557378/114268401-287f2c80-9a01-11eb-806d-96bad2eea1a9.png)
+![classDiagram](https://user-images.githubusercontent.com/48557378/117951184-3384ef80-b314-11eb-86b1-97113843d469.png)
 
 ## Diagrama de Componentes y Comunicación
 A continuación se muestra el diagrama que refleja los diferentes componentes que constituyen la aplicación y la comunicación y conexiones existentes entre ellos. Como se puede ver, hay presente un balanceador de carga mediante HAProxy, que se encarga de redirigir las peticiones a las diferentes instancias activas de la aplicación. Esta a su vez establece comunicación con la base de datos (o la caché distribuida, en caso de las consultas cacheadas ya realizadas con anterioridad) para servirse de los datos del programa. Finalmente, también se comunica con el servicio interno para llevar a cabo operaciones como la pasarela de pago o el envío de los recibos de pedidos al correo electrónico.
