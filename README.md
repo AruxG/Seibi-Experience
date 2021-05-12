@@ -3,7 +3,7 @@ Seibi Experience busca proporcionar una forma cómoda de visualizar, comprar y c
 
 Se trata de una aplicación web en la cual podremos encontrarnos con diferentes packs de experiencias por la ciudad de Madrid, es decir, una serie de actividades combinadas y diseñadas para facilitar la vida del usuario y permitirle vivir experiencias únicas y apasionantes. Con Seibi Experiencie, los usuarios podrán también ver recomendaciones de otros usuarios, comentarios y otras opciones que les ayuden a decidir y elegir la experiencia que quieren vivir en cada momento, pudiendo emplear también para ello búsquedas simplificadas. Es destacable que para llevar a cabo la compra de packs de experiencias se requiere de registro en la web.
 
-**Demonstración en vídeo: https://www.youtube.com/watch?v=E6vSq3MUKv4**
+**Demostración en vídeo: https://www.youtube.com/watch?v=E6vSq3MUKv4**
 ## Funcionalidad pública y privada
 Se detallan, de forma pormenorizada, la distinción entre funcionalidades públicas y privadas o particulares de cada usuario:
 * __Funcionalidades públicas__: visualizar comentarios de usuarios y ofertas de packs sin registro
